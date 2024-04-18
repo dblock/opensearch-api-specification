@@ -12,16 +12,19 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
+      - name: Checkout Tools
+        uses: actions/checkout@v4
+      - name: Checkout Updated Spec
+        uses: actions/checkout@v4
         with:
+           path: pr
            ref: ${{ github.event.pull_request.head.sha }}
       - name: Build Spec
         working-directory: ./tools
         run: |-
           mkdir -p ../build
           npm install
-          export ROOT_PATH=../spec/opensearch-openapi.yaml
+          export ROOT_PATH=../pr/spec/opensearch-openapi.yaml
           export OUTPUT_PATH=../build/opensearch-openapi.yaml
           npm run merge -- $ROOT_PATH $OUTPUT_PATH
       - name: Build and Run Docker Container
