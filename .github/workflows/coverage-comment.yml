@@ -1,4 +1,4 @@
-name: Comment with API Coverage
+name: Comment wuth API Coverage
 
 on:
   workflow_run:
@@ -32,10 +32,7 @@ jobs:
                archive_format: 'zip',
             });
             var fs = require('fs');
-            fs.writeFileSync('${{github.workspace}}/coverage.zip', Buffer.from(download.data));
-      - run: |
-            unzip coverage.zip
-            cat coverage.json
+            fs.writeFileSync('${{github.workspace}}/coverage.json', Buffer.from(download.data));
 
       - name: 'Comment on PR'
         uses: actions/github-script@v3
