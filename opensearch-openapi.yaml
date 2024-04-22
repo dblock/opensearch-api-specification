@@ -5309,14 +5309,48 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/search@200'
-  /_search/pipeline/{pipeline}:
+  /_search/pipeline:
     get:
       operationId: search_pipeline.get.0
       x-operation-group: search_pipeline.get
       x-version-added: '2.9'
       description: Retrieves information about a specified search pipeline.
       parameters:
-        - $ref: '#/components/parameters/search_pipeline.get::path.pipeline'
+        - $ref: '#/components/parameters/search_pipeline.get::query.cluster_manager_timeout'
+        - $ref: '#/components/parameters/_global::query.pretty'
+        - $ref: '#/components/parameters/_global::query.human'
+        - $ref: '#/components/parameters/_global::query.error_trace'
+        - $ref: '#/components/parameters/_global::query.source'
+        - $ref: '#/components/parameters/_global::query.filter_path'
+      responses:
+        '200':
+          $ref: '#/components/responses/search_pipeline.get@200'
+  /_search/pipeline/{id}:
+    delete:
+      operationId: search_pipeline.delete.0
+      x-operation-group: search_pipeline.delete
+      x-version-added: '2.9'
+      description: Deletes the specified search pipeline.
+      parameters:
+        - $ref: '#/components/parameters/search_pipeline.delete::query.cluster_manager_timeout'
+        - $ref: '#/components/parameters/search_pipeline.delete::query.timeout'
+        - $ref: '#/components/parameters/search_pipeline.delete::path.id'
+        - $ref: '#/components/parameters/_global::query.pretty'
+        - $ref: '#/components/parameters/_global::query.human'
+        - $ref: '#/components/parameters/_global::query.error_trace'
+        - $ref: '#/components/parameters/_global::query.source'
+        - $ref: '#/components/parameters/_global::query.filter_path'
+      responses:
+        '200':
+          $ref: '#/components/responses/search_pipeline.delete@200'
+    get:
+      operationId: search_pipeline.get.1
+      x-operation-group: search_pipeline.get
+      x-version-added: '2.9'
+      description: Retrieves information about a specified search pipeline.
+      parameters:
+        - $ref: '#/components/parameters/search_pipeline.get::query.cluster_manager_timeout'
+        - $ref: '#/components/parameters/search_pipeline.get::path.id'
         - $ref: '#/components/parameters/_global::query.pretty'
         - $ref: '#/components/parameters/_global::query.human'
         - $ref: '#/components/parameters/_global::query.error_trace'
@@ -5326,24 +5360,26 @@ paths:
         '200':
           $ref: '#/components/responses/search_pipeline.get@200'
     put:
-      operationId: search_pipeline.create.0
-      x-operation-group: search_pipeline.create
+      operationId: search_pipeline.put.0
+      x-operation-group: search_pipeline.put
       x-version-added: '2.9'
       description: Creates or replaces the specified search pipeline.
       externalDocs:
         url: https://opensearch.org/docs/latest/search-plugins/search-pipelines/creating-search-pipeline/
       parameters:
-        - $ref: '#/components/parameters/search_pipeline.create::path.pipeline'
+        - $ref: '#/components/parameters/search_pipeline.put::query.cluster_manager_timeout'
+        - $ref: '#/components/parameters/search_pipeline.put::query.timeout'
+        - $ref: '#/components/parameters/search_pipeline.put::path.id'
         - $ref: '#/components/parameters/_global::query.pretty'
         - $ref: '#/components/parameters/_global::query.human'
         - $ref: '#/components/parameters/_global::query.error_trace'
         - $ref: '#/components/parameters/_global::query.source'
         - $ref: '#/components/parameters/_global::query.filter_path'
       requestBody:
-        $ref: '#/components/requestBodies/search_pipeline.create'
+        $ref: '#/components/requestBodies/search_pipeline.put'
       responses:
         '200':
-          $ref: '#/components/responses/search_pipeline.create@200'
+          $ref: '#/components/responses/search_pipeline.put@200'
   /_search/point_in_time:
     delete:
       operationId: delete_pit.0
@@ -9098,6 +9134,7 @@ components:
       description: If `true`, the request’s actions must target an index alias.
       schema:
         type: boolean
+        default: false
       style: form
     bulk::query.routing:
       in: query
@@ -9129,6 +9166,7 @@ components:
       schema:
         $ref: '#/components/schemas/_common:WaitForActiveShards'
       style: form
+      x-default: '1'
     cat.aliases::path.name:
       in: path
       name: name
@@ -9575,6 +9613,7 @@ components:
       description: If true, returns `HH:MM:SS` and Unix epoch timestamps.
       schema:
         type: boolean
+        default: true
       style: form
     cat.health::query.v:
       name: v
@@ -9673,6 +9712,7 @@ components:
       description: If true, the response includes information from segments that are not loaded into memory.
       schema:
         type: boolean
+        default: false
       style: form
     cat.indices::query.local:
       name: local
@@ -9697,6 +9737,7 @@ components:
       description: If true, the response only includes information from primary shards.
       schema:
         type: boolean
+        default: false
       style: form
     cat.indices::query.s:
       name: s
@@ -9891,6 +9932,7 @@ components:
         oneOf:
           - type: boolean
           - type: string
+        default: false
       style: form
     cat.nodes::query.h:
       name: h
@@ -10167,6 +10209,7 @@ components:
       description: If `true`, the response only includes ongoing shard recoveries.
       schema:
         type: boolean
+        default: false
       style: form
     cat.recovery::query.bytes:
       in: query
@@ -10181,6 +10224,7 @@ components:
       description: If `true`, the response includes detailed information about shard recoveries.
       schema:
         type: boolean
+        default: false
       style: form
     cat.recovery::query.format:
       name: format
@@ -10682,6 +10726,7 @@ components:
       description: If `true`, the response does not include information from unavailable snapshots.
       schema:
         type: boolean
+        default: false
       style: form
     cat.snapshots::query.master_timeout:
       name: master_timeout
@@ -10732,6 +10777,7 @@ components:
       description: If `true`, the response includes detailed information about shard recoveries.
       schema:
         type: boolean
+        default: false
       style: form
     cat.tasks::query.format:
       name: format
@@ -10984,6 +11030,7 @@ components:
       description: If true, returns information about disk usage and shard sizes.
       schema:
         type: boolean
+        default: false
       style: form
     cluster.allocation_explain::query.include_yes_decisions:
       in: query
@@ -10991,6 +11038,7 @@ components:
       description: If true, returns YES decisions in explanation.
       schema:
         type: boolean
+        default: false
       style: form
     cluster.delete_component_template::path.name:
       in: path
@@ -11042,6 +11090,7 @@ components:
         nodes are still in the cluster.
       schema:
         type: boolean
+        default: true
       style: form
     cluster.exists_component_template::path.name:
       in: path
@@ -11068,6 +11117,7 @@ components:
         Defaults to false, which means information is retrieved from the master node.
       schema:
         type: boolean
+        default: false
       style: form
     cluster.exists_component_template::query.master_timeout:
       in: query
@@ -11107,6 +11157,7 @@ components:
         If `false`, information is retrieved from the master node.
       schema:
         type: boolean
+        default: false
       style: form
     cluster.get_component_template::query.master_timeout:
       in: query
@@ -11142,6 +11193,7 @@ components:
       description: If `true`, returns settings in flat format.
       schema:
         type: boolean
+        default: false
       style: form
     cluster.get_settings::query.include_defaults:
       in: query
@@ -11149,6 +11201,7 @@ components:
       description: If `true`, returns default cluster settings from the local node.
       schema:
         type: boolean
+        default: false
       style: form
     cluster.get_settings::query.master_timeout:
       in: query
@@ -11222,6 +11275,7 @@ components:
       description: If true, the request retrieves information from the local node only. Defaults to false, which means information is retrieved from the master node.
       schema:
         type: boolean
+        default: false
       style: form
     cluster.health::query.master_timeout:
       in: query
@@ -11299,6 +11353,7 @@ components:
         If `false`, information is retrieved from the master node.
       schema:
         type: boolean
+        default: false
       style: form
     cluster.pending_tasks::query.master_timeout:
       in: query
@@ -11367,6 +11422,7 @@ components:
       description: If `true`, this request cannot replace or update existing component templates.
       schema:
         type: boolean
+        default: false
       style: form
     cluster.put_component_template::query.master_timeout:
       in: query
@@ -11417,6 +11473,7 @@ components:
       description: 'Return settings in flat format (default: false)'
       schema:
         type: boolean
+        default: false
       style: form
     cluster.put_settings::query.master_timeout:
       in: query
@@ -11541,6 +11598,7 @@ components:
       description: 'Return settings in flat format (default: false)'
       schema:
         type: boolean
+        default: false
       style: form
     cluster.state::query.ignore_unavailable:
       in: query
@@ -11555,6 +11613,7 @@ components:
       description: 'Return local information, do not retrieve the state from cluster-manager node (default: false)'
       schema:
         type: boolean
+        default: false
       style: form
     cluster.state::query.master_timeout:
       in: query
@@ -11594,6 +11653,7 @@ components:
       description: If `true`, returns settings in flat format.
       schema:
         type: boolean
+        default: false
       style: form
     cluster.stats::query.timeout:
       in: query
@@ -11633,6 +11693,7 @@ components:
         This parameter can only be used when the `q` query string parameter is specified.
       schema:
         type: boolean
+        default: false
       style: form
     count::query.analyzer:
       in: query
@@ -11707,6 +11768,7 @@ components:
         Random by default.
       schema:
         type: string
+        default: random
       style: form
     count::query.q:
       in: query
@@ -11809,6 +11871,7 @@ components:
       schema:
         $ref: '#/components/schemas/_common:WaitForActiveShards'
       style: form
+      x-default: '1'
     create_pit::path.index:
       name: index
       in: path
@@ -12015,6 +12078,7 @@ components:
       schema:
         $ref: '#/components/schemas/_common:WaitForActiveShards'
       style: form
+      x-default: '1'
     delete_by_query::path.index:
       in: path
       name: index
@@ -12075,6 +12139,7 @@ components:
       description: If `true`, wildcard and prefix queries are analyzed.
       schema:
         type: boolean
+        default: false
       style: form
     delete_by_query::query.analyzer:
       in: query
@@ -12120,6 +12185,7 @@ components:
       description: 'Starting offset (default: 0)'
       schema:
         type: number
+        default: 0
       style: form
     delete_by_query::query.ignore_unavailable:
       in: query
@@ -12152,6 +12218,7 @@ components:
         Random by default.
       schema:
         type: string
+        default: random
       style: form
     delete_by_query::query.q:
       in: query
@@ -12182,6 +12249,7 @@ components:
       description: The throttle for this request in sub-requests per second.
       schema:
         type: number
+        default: 0
       style: form
     delete_by_query::query.routing:
       in: query
@@ -12203,6 +12271,7 @@ components:
       description: Size of the scroll request that powers the operation.
       schema:
         type: number
+        default: 100
       style: form
     delete_by_query::query.search_timeout:
       in: query
@@ -12237,6 +12306,7 @@ components:
       schema:
         $ref: '#/components/schemas/_common:Slices'
       style: form
+      x-default: '1'
     delete_by_query::query.sort:
       in: query
       name: sort
@@ -12276,6 +12346,7 @@ components:
       schema:
         $ref: '#/components/schemas/_common:Duration'
       style: form
+      x-default: 1m
     delete_by_query::query.version:
       in: query
       name: version
@@ -12292,12 +12363,14 @@ components:
       schema:
         $ref: '#/components/schemas/_common:WaitForActiveShards'
       style: form
+      x-default: '1'
     delete_by_query::query.wait_for_completion:
       in: query
       name: wait_for_completion
       description: If `true`, the request blocks until the operation is complete.
       schema:
         type: boolean
+        default: true
       style: form
     delete_by_query_rethrottle::path.task_id:
       in: path
@@ -12397,6 +12470,7 @@ components:
         Random by default.
       schema:
         type: string
+        default: random
       style: form
     exists::query.realtime:
       in: query
@@ -12492,6 +12566,7 @@ components:
         Random by default.
       schema:
         type: string
+        default: random
       style: form
     exists_source::query.realtime:
       in: query
@@ -12575,6 +12650,7 @@ components:
       description: If `true`, wildcard and prefix queries are analyzed.
       schema:
         type: boolean
+        default: false
       style: form
     explain::query.analyzer:
       in: query
@@ -12598,6 +12674,7 @@ components:
       description: Field to use as default where no field prefix is given in the query string.
       schema:
         type: string
+        default: _all
       style: form
     explain::query.lenient:
       in: query
@@ -12614,6 +12691,7 @@ components:
         Random by default.
       schema:
         type: string
+        default: random
       style: form
     explain::query.q:
       in: query
@@ -12681,6 +12759,7 @@ components:
       description: If true, unmapped fields are included in the response.
       schema:
         type: boolean
+        default: false
       style: form
     get::path.id:
       in: path
@@ -12725,6 +12804,7 @@ components:
       description: Specifies the node or shard the operation should be performed on. Random by default.
       schema:
         type: string
+        default: random
       style: form
     get::query.realtime:
       in: query
@@ -12839,6 +12919,7 @@ components:
       description: Specifies the node or shard the operation should be performed on. Random by default.
       schema:
         type: string
+        default: random
       style: form
     get_source::query.realtime:
       in: query
@@ -12943,6 +13024,7 @@ components:
       description: If `true`, the destination must be an index alias.
       schema:
         type: boolean
+        default: false
       style: form
     index::query.routing:
       in: query
@@ -12983,6 +13065,7 @@ components:
       schema:
         $ref: '#/components/schemas/_common:WaitForActiveShards'
       style: form
+      x-default: '1'
     indices.add_block::path.block:
       in: path
       name: block
@@ -13370,6 +13453,7 @@ components:
         This behavior applies even if the request targets other open indices.
       schema:
         type: boolean
+        default: false
       style: form
     indices.delete::query.cluster_manager_timeout:
       name: cluster_manager_timeout
@@ -13395,6 +13479,7 @@ components:
       description: If `false`, the request returns an error if it targets a missing or closed index.
       schema:
         type: boolean
+        default: false
       style: form
     indices.delete::query.master_timeout:
       in: query
@@ -13559,6 +13644,7 @@ components:
         This behavior applies even if the request targets other open indices.
       schema:
         type: boolean
+        default: false
       style: form
     indices.exists::query.expand_wildcards:
       in: query
@@ -13577,6 +13663,7 @@ components:
       description: If `true`, returns settings in flat format.
       schema:
         type: boolean
+        default: false
       style: form
     indices.exists::query.ignore_unavailable:
       in: query
@@ -13584,6 +13671,7 @@ components:
       description: If `false`, the request returns an error if it targets a missing or closed index.
       schema:
         type: boolean
+        default: false
       style: form
     indices.exists::query.include_defaults:
       in: query
@@ -13591,6 +13679,7 @@ components:
       description: If `true`, return all default settings in the response.
       schema:
         type: boolean
+        default: false
       style: form
     indices.exists::query.local:
       in: query
@@ -13598,6 +13687,7 @@ components:
       description: If `true`, the request retrieves information from the local node only.
       schema:
         type: boolean
+        default: false
       style: form
     indices.exists_alias::path.index:
       in: path
@@ -13650,6 +13740,7 @@ components:
       description: If `true`, the request retrieves information from the local node only.
       schema:
         type: boolean
+        default: false
       style: form
     indices.exists_index_template::path.name:
       in: path
@@ -13713,6 +13804,7 @@ components:
       description: 'Return settings in flat format (default: false)'
       schema:
         type: boolean
+        default: false
       style: form
     indices.exists_template::query.local:
       in: query
@@ -13720,6 +13812,7 @@ components:
       description: 'Return local information, do not retrieve the state from cluster-manager node (default: false)'
       schema:
         type: boolean
+        default: false
       style: form
     indices.exists_template::query.master_timeout:
       in: query
@@ -13784,6 +13877,7 @@ components:
         If `false`, Opensearch returns an error if you request a flush when another flush operation is running.
       schema:
         type: boolean
+        default: true
       style: form
     indices.forcemerge::path.index:
       in: path
@@ -13813,6 +13907,7 @@ components:
       description: 'Specify whether the index should be flushed after performing the operation (default: true)'
       schema:
         type: boolean
+        default: true
       style: form
     indices.forcemerge::query.ignore_unavailable:
       in: query
@@ -13849,6 +13944,7 @@ components:
       description: Should the request wait until the force merge is completed.
       schema:
         type: boolean
+        default: true
       style: form
     indices.get::path.index:
       in: path
@@ -13869,6 +13965,7 @@ components:
         a request targeting foo*,bar* returns an error if an index starts with foo but no index starts with bar.
       schema:
         type: boolean
+        default: false
       style: form
     indices.get::query.cluster_manager_timeout:
       name: cluster_manager_timeout
@@ -13893,6 +13990,7 @@ components:
       description: If true, returns settings in flat format.
       schema:
         type: boolean
+        default: false
       style: form
     indices.get::query.ignore_unavailable:
       in: query
@@ -13900,6 +13998,7 @@ components:
       description: If false, requests that target a missing index return an error.
       schema:
         type: boolean
+        default: false
       style: form
     indices.get::query.include_defaults:
       in: query
@@ -13907,6 +14006,7 @@ components:
       description: If true, return all default settings in the response.
       schema:
         type: boolean
+        default: false
       style: form
     indices.get::query.local:
       in: query
@@ -13914,6 +14014,7 @@ components:
       description: If true, the request retrieves information from the local node only. Defaults to false, which means information is retrieved from the master node.
       schema:
         type: boolean
+        default: false
       style: form
     indices.get::query.master_timeout:
       in: query
@@ -13980,6 +14081,7 @@ components:
       description: If `true`, the request retrieves information from the local node only.
       schema:
         type: boolean
+        default: false
       style: form
     indices.get_data_stream::path.name:
       in: path
@@ -14050,6 +14152,7 @@ components:
       description: If `true`, the request retrieves information from the local node only.
       schema:
         type: boolean
+        default: false
       style: form
     indices.get_index_template::path.name:
       in: path
@@ -14072,6 +14175,7 @@ components:
       description: If true, returns settings in flat format.
       schema:
         type: boolean
+        default: false
       style: form
     indices.get_index_template::query.local:
       in: query
@@ -14079,6 +14183,7 @@ components:
       description: If true, the request retrieves information from the local node only. Defaults to false, which means information is retrieved from the master node.
       schema:
         type: boolean
+        default: false
       style: form
     indices.get_index_template::query.master_timeout:
       in: query
@@ -14141,6 +14246,7 @@ components:
       description: If `true`, the request retrieves information from the local node only.
       schema:
         type: boolean
+        default: false
       style: form
     indices.get_mapping::query.master_timeout:
       in: query
@@ -14208,6 +14314,7 @@ components:
       description: If `true`, returns settings in flat format.
       schema:
         type: boolean
+        default: false
       style: form
     indices.get_settings::query.ignore_unavailable:
       in: query
@@ -14222,6 +14329,7 @@ components:
       description: If `true`, return all default settings in the response.
       schema:
         type: boolean
+        default: false
       style: form
     indices.get_settings::query.local:
       in: query
@@ -14231,6 +14339,7 @@ components:
         `false`, information is retrieved from the master node.
       schema:
         type: boolean
+        default: false
       style: form
     indices.get_settings::query.master_timeout:
       in: query
@@ -14269,6 +14378,7 @@ components:
       description: If `true`, returns settings in flat format.
       schema:
         type: boolean
+        default: false
       style: form
     indices.get_template::query.local:
       in: query
@@ -14276,6 +14386,7 @@ components:
       description: If `true`, the request retrieves information from the local node only.
       schema:
         type: boolean
+        default: false
       style: form
     indices.get_template::query.master_timeout:
       in: query
@@ -14489,6 +14600,7 @@ components:
       description: If `true`, this request cannot replace or update existing index templates.
       schema:
         type: boolean
+        default: false
       style: form
     indices.put_index_template::query.master_timeout:
       name: master_timeout
@@ -14568,6 +14680,7 @@ components:
       description: If `true`, the mappings are applied only to the current write index for the target.
       schema:
         type: boolean
+        default: false
       style: form
     indices.put_settings::path.index:
       in: path
@@ -14616,6 +14729,7 @@ components:
       description: If `true`, returns settings in flat format.
       schema:
         type: boolean
+        default: false
       style: form
     indices.put_settings::query.ignore_unavailable:
       in: query
@@ -14643,6 +14757,7 @@ components:
       description: If `true`, existing index settings remain unchanged.
       schema:
         type: boolean
+        default: false
       style: form
     indices.put_settings::query.timeout:
       in: query
@@ -14674,6 +14789,7 @@ components:
       description: If true, this request cannot replace or update existing index templates.
       schema:
         type: boolean
+        default: false
       style: form
     indices.put_template::query.master_timeout:
       in: query
@@ -14716,6 +14832,7 @@ components:
       description: If `true`, the response only includes ongoing shard recoveries.
       schema:
         type: boolean
+        default: false
       style: form
     indices.recovery::query.detailed:
       in: query
@@ -14723,6 +14840,7 @@ components:
       description: If `true`, the response includes detailed information about shard recoveries.
       schema:
         type: boolean
+        default: false
       style: form
     indices.refresh::path.index:
       in: path
@@ -14815,6 +14933,7 @@ components:
       description: If `true`, checks whether the current index satisfies the specified conditions but does not perform a rollover.
       schema:
         type: boolean
+        default: false
       style: form
     indices.rollover::query.master_timeout:
       in: query
@@ -14890,6 +15009,7 @@ components:
       description: If `true`, the request returns a verbose response.
       schema:
         type: boolean
+        default: false
       style: form
     indices.shard_stores::path.index:
       in: path
@@ -15045,6 +15165,7 @@ components:
         simulation.
       schema:
         type: boolean
+        default: false
       style: form
     indices.simulate_index_template::query.master_timeout:
       in: query
@@ -15089,6 +15210,7 @@ components:
       description: If true, the template passed in the body is only used if no existing templates match the same index patterns. If false, the simulation uses the template with the highest priority. Note that the template is not permanently added or updated in either case; it is only used for the simulation.
       schema:
         type: boolean
+        default: false
       style: form
     indices.simulate_template::query.master_timeout:
       in: query
@@ -15228,6 +15350,7 @@ components:
       description: If true, statistics are not collected from closed indices.
       schema:
         type: boolean
+        default: true
       style: form
     indices.stats::query.groups:
       in: query
@@ -15246,6 +15369,7 @@ components:
       description: If true, the call reports the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested).
       schema:
         type: boolean
+        default: false
       style: form
     indices.stats::query.include_unloaded_segments:
       in: query
@@ -15253,6 +15377,7 @@ components:
       description: If true, the response includes information from segments that are not loaded into memory.
       schema:
         type: boolean
+        default: false
       style: form
     indices.stats::query.level:
       in: query
@@ -15367,6 +15492,7 @@ components:
       description: If `true`, wildcard and prefix queries are analyzed.
       schema:
         type: boolean
+        default: false
       style: form
     indices.validate_query::query.analyzer:
       in: query
@@ -15555,6 +15681,7 @@ components:
       description: If `true`, the response includes output data for each processor in the executed pipeline.
       schema:
         type: boolean
+        default: false
       style: form
     knn.delete_model::path.model_id:
       name: model_id
@@ -16031,6 +16158,7 @@ components:
       description: Specifies the node or shard the operation should be performed on. Random by default.
       schema:
         type: string
+        default: random
       style: form
     mget::query.realtime:
       in: query
@@ -16074,6 +16202,7 @@ components:
       description: If true, network roundtrips between the coordinating node and remote clusters are minimized for cross-cluster search requests.
       schema:
         type: boolean
+        default: true
       style: form
     msearch::query.max_concurrent_searches:
       in: query
@@ -16088,6 +16217,7 @@ components:
       description: Maximum number of concurrent shard requests that each sub-search request executes per node.
       schema:
         type: number
+        default: 5
       style: form
     msearch::query.pre_filter_shard_size:
       in: query
@@ -16102,6 +16232,7 @@ components:
       description: If true, hits.total are returned as an integer in the response. Defaults to false, which returns an object.
       schema:
         type: boolean
+        default: false
       style: form
     msearch::query.search_type:
       in: query
@@ -16134,6 +16265,7 @@ components:
       description: If `true`, network round-trips are minimized for cross-cluster search requests.
       schema:
         type: boolean
+        default: true
       style: form
     msearch_template::query.max_concurrent_searches:
       in: query
@@ -16150,6 +16282,7 @@ components:
         If `false`, it returns `hits.total` as an object.
       schema:
         type: boolean
+        default: false
       style: form
     msearch_template::query.search_type:
       in: query
@@ -16181,6 +16314,7 @@ components:
       description: If `true`, the response includes the document count, sum of document frequencies, and sum of total term frequencies.
       schema:
         type: boolean
+        default: true
       style: form
     mtermvectors::query.fields:
       in: query
@@ -16206,6 +16340,7 @@ components:
       description: If `true`, the response includes term offsets.
       schema:
         type: boolean
+        default: true
       style: form
     mtermvectors::query.payloads:
       in: query
@@ -16213,6 +16348,7 @@ components:
       description: If `true`, the response includes term payloads.
       schema:
         type: boolean
+        default: true
       style: form
     mtermvectors::query.positions:
       in: query
@@ -16220,6 +16356,7 @@ components:
       description: If `true`, the response includes term positions.
       schema:
         type: boolean
+        default: true
       style: form
     mtermvectors::query.preference:
       in: query
@@ -16229,6 +16366,7 @@ components:
         Random by default.
       schema:
         type: string
+        default: random
       style: form
     mtermvectors::query.realtime:
       in: query
@@ -16236,6 +16374,7 @@ components:
       description: If true, the request is real-time as opposed to near-real-time.
       schema:
         type: boolean
+        default: true
       style: form
     mtermvectors::query.routing:
       in: query
@@ -16250,6 +16389,7 @@ components:
       description: If true, the response includes term frequency and document frequency.
       schema:
         type: boolean
+        default: false
       style: form
     mtermvectors::query.version:
       in: query
@@ -16343,6 +16483,7 @@ components:
       description: If true, returns settings in flat format.
       schema:
         type: boolean
+        default: false
       style: form
     nodes.info::query.timeout:
       in: query
@@ -16432,6 +16573,7 @@ components:
       description: If true, the call reports the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested).
       schema:
         type: boolean
+        default: false
       style: form
     nodes.stats::query.level:
       in: query
@@ -16825,6 +16967,7 @@ components:
         Defaults to no throttle.
       schema:
         type: number
+        default: 0
       style: form
     reindex::query.scroll:
       in: query
@@ -16842,6 +16985,7 @@ components:
       schema:
         $ref: '#/components/schemas/_common:Slices'
       style: form
+      x-default: '1'
     reindex::query.timeout:
       in: query
       name: timeout
@@ -16849,6 +16993,7 @@ components:
       schema:
         $ref: '#/components/schemas/_common:Duration'
       style: form
+      x-default: 1m
     reindex::query.wait_for_active_shards:
       in: query
       name: wait_for_active_shards
@@ -16858,12 +17003,14 @@ components:
       schema:
         $ref: '#/components/schemas/_common:WaitForActiveShards'
       style: form
+      x-default: '1'
     reindex::query.wait_for_completion:
       in: query
       name: wait_for_completion
       description: If `true`, the request blocks until the operation is complete.
       schema:
         type: boolean
+        default: true
       style: form
     reindex_rethrottle::path.task_id:
       in: path
@@ -16920,6 +17067,7 @@ components:
       description: If true, the API response’s hit.total property is returned as an integer. If false, the API response’s hit.total property is returned as an object.
       schema:
         type: boolean
+        default: false
       style: form
     scroll::query.scroll:
       in: query
@@ -16997,6 +17145,7 @@ components:
       description: If true, returns partial results if there are shard request timeouts or shard failures. If false, returns an error with no partial results.
       schema:
         type: boolean
+        default: true
       style: form
     search::query.analyze_wildcard:
       in: query
@@ -17006,6 +17155,7 @@ components:
         This parameter can only be used when the q query string parameter is specified.
       schema:
         type: boolean
+        default: false
       style: form
     search::query.analyzer:
       in: query
@@ -17024,6 +17174,7 @@ components:
         This value should be used as a protection mechanism to reduce the memory overhead per search request if the potential number of shards in the request can be large.
       schema:
         type: number
+        default: 512
       style: form
     search::query.ccs_minimize_roundtrips:
       in: query
@@ -17031,6 +17182,7 @@ components:
       description: If true, network round-trips between the coordinating node and the remote clusters are minimized when executing cross-cluster search (CCS) requests.
       schema:
         type: boolean
+        default: true
       style: form
     search::query.default_operator:
       in: query
@@ -17084,6 +17236,7 @@ components:
         To page through more hits, use the `search_after` parameter.
       schema:
         type: number
+        default: 0
       style: form
     search::query.ignore_throttled:
       in: query
@@ -17124,6 +17277,7 @@ components:
         This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests.
       schema:
         type: number
+        default: 5
       style: form
     search::query.pre_filter_shard_size:
       in: query
@@ -17152,6 +17306,7 @@ components:
         `<custom-string>` (any string that does not start with `_`) to route searches with the same `<custom-string>` to the same shards in the same order.
       schema:
         type: string
+        default: random
       style: form
     search::query.q:
       in: query
@@ -17177,6 +17332,7 @@ components:
       description: Indicates whether `hits.total` should be rendered as an integer or an object in the rest search response.
       schema:
         type: boolean
+        default: false
       style: form
     search::query.routing:
       in: query
@@ -17225,6 +17381,7 @@ components:
         To page through more hits, use the `search_after` parameter.
       schema:
         type: number
+        default: 10
       style: form
     search::query.sort:
       in: query
@@ -17346,18 +17503,59 @@ components:
       schema:
         type: boolean
       style: form
-    search_pipeline.create::path.pipeline:
-      name: pipeline
+    search_pipeline.delete::path.id:
+      name: id
       in: path
+      description: Pipeline ID.
       schema:
         type: string
       required: true
-    search_pipeline.get::path.pipeline:
-      name: pipeline
+    search_pipeline.delete::query.cluster_manager_timeout:
+      name: cluster_manager_timeout
+      in: query
+      description: Operation timeout for connection to cluster-manager node.
+      schema:
+        $ref: '#/components/schemas/_common:Duration'
+      x-version-added: 2.0.0
+    search_pipeline.delete::query.timeout:
+      name: timeout
+      in: query
+      description: Operation timeout.
+      schema:
+        $ref: '#/components/schemas/_common:Duration'
+    search_pipeline.get::path.id:
+      name: id
       in: path
+      description: Comma-separated list of search pipeline ids. Wildcards supported.
+      schema:
+        type: string
+    search_pipeline.get::query.cluster_manager_timeout:
+      name: cluster_manager_timeout
+      in: query
+      description: operation timeout for connection to cluster-manager node.
+      schema:
+        $ref: '#/components/schemas/_common:Duration'
+      x-version-added: 2.0.0
+    search_pipeline.put::path.id:
+      name: id
+      in: path
+      description: Pipeline ID.
       schema:
         type: string
       required: true
+    search_pipeline.put::query.cluster_manager_timeout:
+      name: cluster_manager_timeout
+      in: query
+      description: operation timeout for connection to cluster-manager node.
+      schema:
+        $ref: '#/components/schemas/_common:Duration'
+      x-version-added: 2.0.0
+    search_pipeline.put::query.timeout:
+      name: timeout
+      in: query
+      description: Operation timeout.
+      schema:
+        $ref: '#/components/schemas/_common:Duration'
     search_shards::path.index:
       in: path
       name: index
@@ -17400,6 +17598,7 @@ components:
       description: If `true`, the request retrieves information from the local node only.
       schema:
         type: boolean
+        default: false
       style: form
     search_shards::query.preference:
       in: query
@@ -17409,6 +17608,7 @@ components:
         Random by default.
       schema:
         type: string
+        default: random
       style: form
     search_shards::query.routing:
       in: query
@@ -17443,6 +17643,7 @@ components:
       description: If `true`, network round-trips are minimized for cross-cluster search requests.
       schema:
         type: boolean
+        default: true
       style: form
     search_template::query.expand_wildcards:
       in: query
@@ -17484,6 +17685,7 @@ components:
         Random by default.
       schema:
         type: string
+        default: random
       style: form
     search_template::query.profile:
       in: query
@@ -17498,6 +17700,7 @@ components:
       description: If true, hits.total are rendered as an integer in the response.
       schema:
         type: boolean
+        default: false
       style: form
     search_template::query.routing:
       in: query
@@ -17785,6 +17988,7 @@ components:
       description: If `true`, the request returns a response when the snapshot is complete. If `false`, the request returns a response when the snapshot initializes.
       schema:
         type: boolean
+        default: false
       style: form
     snapshot.create_repository::path.repository:
       in: path
@@ -17922,6 +18126,7 @@ components:
       description: If false, the request returns an error for any snapshots that are unavailable.
       schema:
         type: boolean
+        default: false
       style: form
     snapshot.get::query.master_timeout:
       in: query
@@ -17961,6 +18166,7 @@ components:
       description: 'Return local information, do not retrieve the state from cluster-manager node (default: false)'
       schema:
         type: boolean
+        default: false
       style: form
     snapshot.get_repository::query.master_timeout:
       in: query
@@ -18011,6 +18217,7 @@ components:
       description: Should this request wait until the operation has completed before returning
       schema:
         type: boolean
+        default: false
       style: form
     snapshot.status::path.repository:
       in: path
@@ -18041,6 +18248,7 @@ components:
       description: Whether to ignore unavailable snapshots, defaults to false which means a SnapshotMissingException is thrown
       schema:
         type: boolean
+        default: false
       style: form
     snapshot.status::query.master_timeout:
       in: query
@@ -18125,6 +18333,7 @@ components:
       description: Should the request block until the cancellation of the task and its descendant tasks is completed. Defaults to false
       schema:
         type: boolean
+        default: false
       style: form
     tasks.get::path.task_id:
       in: path
@@ -18149,6 +18358,7 @@ components:
       description: If `true`, the request blocks until the task has completed.
       schema:
         type: boolean
+        default: false
       style: form
     tasks.list::query.actions:
       in: query
@@ -18167,6 +18377,7 @@ components:
       description: If `true`, the response includes detailed information about shard recoveries.
       schema:
         type: boolean
+        default: false
       style: form
     tasks.list::query.group_by:
       in: query
@@ -18206,6 +18417,7 @@ components:
       description: If `true`, the request blocks until the operation is complete.
       schema:
         type: boolean
+        default: false
       style: form
     termvectors::path.id:
       in: path
@@ -18229,6 +18441,7 @@ components:
       description: If `true`, the response includes the document count, sum of document frequencies, and sum of total term frequencies.
       schema:
         type: boolean
+        default: true
       style: form
     termvectors::query.fields:
       in: query
@@ -18245,6 +18458,7 @@ components:
       description: If `true`, the response includes term offsets.
       schema:
         type: boolean
+        default: true
       style: form
     termvectors::query.payloads:
       in: query
@@ -18252,6 +18466,7 @@ components:
       description: If `true`, the response includes term payloads.
       schema:
         type: boolean
+        default: true
       style: form
     termvectors::query.positions:
       in: query
@@ -18259,6 +18474,7 @@ components:
       description: If `true`, the response includes term positions.
       schema:
         type: boolean
+        default: true
       style: form
     termvectors::query.preference:
       in: query
@@ -18268,6 +18484,7 @@ components:
         Random by default.
       schema:
         type: string
+        default: random
       style: form
     termvectors::query.realtime:
       in: query
@@ -18275,6 +18492,7 @@ components:
       description: If true, the request is real-time as opposed to near-real-time.
       schema:
         type: boolean
+        default: true
       style: form
     termvectors::query.routing:
       in: query
@@ -18289,6 +18507,7 @@ components:
       description: If `true`, the response includes term frequency and document frequency.
       schema:
         type: boolean
+        default: false
       style: form
     termvectors::query.version:
       in: query
@@ -18363,6 +18582,7 @@ components:
       description: The script language.
       schema:
         type: string
+        default: painless
       style: form
     update::query.refresh:
       in: query
@@ -18380,6 +18600,7 @@ components:
       description: If true, the destination must be an index alias.
       schema:
         type: boolean
+        default: false
       style: form
     update::query.retry_on_conflict:
       in: query
@@ -18387,6 +18608,7 @@ components:
       description: Specify how many times should the operation be retried when a conflict occurs.
       schema:
         type: number
+        default: 0
       style: form
     update::query.routing:
       in: query
@@ -18415,6 +18637,7 @@ components:
       schema:
         $ref: '#/components/schemas/_common:WaitForActiveShards'
       style: form
+      x-default: '1'
     update_by_query::path.index:
       in: path
       name: index
@@ -18475,6 +18698,7 @@ components:
       description: If `true`, wildcard and prefix queries are analyzed.
       schema:
         type: boolean
+        default: false
       style: form
     update_by_query::query.analyzer:
       in: query
@@ -18521,6 +18745,7 @@ components:
       description: 'Starting offset (default: 0)'
       schema:
         type: number
+        default: 0
       style: form
     update_by_query::query.ignore_unavailable:
       in: query
@@ -18563,6 +18788,7 @@ components:
         Random by default.
       schema:
         type: string
+        default: random
       style: form
     update_by_query::query.q:
       name: q
@@ -18591,6 +18817,7 @@ components:
       description: The throttle for this request in sub-requests per second.
       schema:
         type: number
+        default: 0
       style: form
     update_by_query::query.routing:
       in: query
@@ -18612,6 +18839,7 @@ components:
       description: Size of the scroll request that powers the operation.
       schema:
         type: number
+        default: 100
       style: form
     update_by_query::query.search_timeout:
       in: query
@@ -18642,6 +18870,7 @@ components:
       schema:
         $ref: '#/components/schemas/_common:Slices'
       style: form
+      x-default: '1'
     update_by_query::query.sort:
       in: query
       name: sort
@@ -18681,6 +18910,7 @@ components:
       schema:
         $ref: '#/components/schemas/_common:Duration'
       style: form
+      x-default: 1m
     update_by_query::query.version:
       in: query
       name: version
@@ -18697,12 +18927,14 @@ components:
       schema:
         $ref: '#/components/schemas/_common:WaitForActiveShards'
       style: form
+      x-default: '1'
     update_by_query::query.wait_for_completion:
       in: query
       name: wait_for_completion
       description: If `true`, the request blocks until the operation is complete.
       schema:
         type: boolean
+        default: true
       style: form
     update_by_query_rethrottle::path.task_id:
       in: path
@@ -19690,7 +19922,7 @@ components:
                 items:
                   type: string
             description: The search definition using the Query DSL
-    search_pipeline.create:
+    search_pipeline.put:
       content:
         application/json:
           schema:
@@ -21613,7 +21845,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/_core.search:ResponseBody'
-    search_pipeline.create@200:
+    search_pipeline.delete@200:
       description: ''
       content:
         application/json:
@@ -21628,6 +21860,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/search_pipeline._common:SearchPipelineMap'
+    search_pipeline.put@200:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              acknowledged:
+                type: boolean
     search_shards@200:
       description: ''
       content:
