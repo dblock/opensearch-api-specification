@@ -4,7 +4,7 @@ info:
   description: OpenSearch Knn API
   version: 1.0.0
 paths:
-  /_plugins/_knn/models/y_search:
+  /_plugins/_knn/models/x_search:
     get:
       operationId: knn.search_models.0
       x-operation-group: knn.search_models
