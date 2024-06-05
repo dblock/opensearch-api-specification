@@ -21,38 +21,38 @@ describe('StoryEvaluator', () => {
   })
 
   test('passed', async () => {
-    const actual = await load_actual_evaluation('passed', spec)
-    const expected = await load_expected_evaluation('passed')
+    const actual = await load_actual_evaluation('books/passed', spec)
+    const expected = await load_expected_evaluation('books/passed')
     expect(actual).toEqual(expected)
   })
 
   test('skipped', async () => {
-    const actual = await load_actual_evaluation('skipped', spec)
-    const expected = await load_expected_evaluation('skipped')
+    const actual = await load_actual_evaluation('books/skipped', spec)
+    const expected = await load_expected_evaluation('books/skipped')
     expect(actual).toEqual(expected)
   })
 
   test('failed/not_found', async () => {
-    const actual = await load_actual_evaluation('failed/not_found', spec)
-    const expected = await load_expected_evaluation('failed/not_found')
+    const actual = await load_actual_evaluation('books/failed/not_found', spec)
+    const expected = await load_expected_evaluation('books/failed/not_found')
     expect(actual).toEqual(expected)
   })
 
   test('failed/invalid_data', async () => {
-    const actual = await load_actual_evaluation('failed/invalid_data', spec)
-    const expected = await load_expected_evaluation('failed/invalid_data')
+    const actual = await load_actual_evaluation('books/failed/invalid_data', spec)
+    const expected = await load_expected_evaluation('books/failed/invalid_data')
     expect(actual).toEqual(expected)
   })
 
   test('error/prologue_error', async () => {
-    const actual = await load_actual_evaluation('error/prologue_error', spec)
-    const expected = await load_expected_evaluation('error/prologue_error')
+    const actual = await load_actual_evaluation('books/error/prologue_error', spec)
+    const expected = await load_expected_evaluation('books/error/prologue_error')
     expect(actual).toEqual(expected)
   })
 
   test('error/chapter_error', async () => {
-    const actual = await load_actual_evaluation('error/chapter_error', spec)
-    const expected = await load_expected_evaluation('error/chapter_error')
+    const actual = await load_actual_evaluation('books/error/chapter_error', spec)
+    const expected = await load_expected_evaluation('books/error/chapter_error')
     expect(actual).toEqual(expected)
   })
 })
