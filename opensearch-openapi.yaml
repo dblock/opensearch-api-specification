@@ -3656,6 +3656,113 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/knn.warmup@200'
+  /_plugins/_ml/model_groups/_register:
+    post:
+      operationId: ml.register_model_group.0
+      x-operation-group: ml.register_model_group
+      description: Registers a model group.
+      requestBody:
+        $ref: '#/components/requestBodies/ml.register_model_group'
+      responses:
+        '200':
+          $ref: '#/components/responses/ml.register_model_group@200'
+      parameters:
+        - $ref: '#/components/parameters/_global::query.pretty'
+        - $ref: '#/components/parameters/_global::query.human'
+        - $ref: '#/components/parameters/_global::query.error_trace'
+        - $ref: '#/components/parameters/_global::query.source'
+        - $ref: '#/components/parameters/_global::query.filter_path'
+  /_plugins/_ml/model_groups/{model_group_id}:
+    delete:
+      operationId: ml.delete_model_group.0
+      x-operation-group: ml.delete_model_group
+      description: Deletes a model group.
+      parameters:
+        - $ref: '#/components/parameters/ml.delete_model_group::path.model_group_id'
+        - $ref: '#/components/parameters/_global::query.pretty'
+        - $ref: '#/components/parameters/_global::query.human'
+        - $ref: '#/components/parameters/_global::query.error_trace'
+        - $ref: '#/components/parameters/_global::query.source'
+        - $ref: '#/components/parameters/_global::query.filter_path'
+      responses:
+        '200':
+          $ref: '#/components/responses/ml.delete_model_group@200'
+    get:
+      operationId: ml.get_model_group.0
+      x-operation-group: ml.get_model_group
+      description: Retrieves a model group.
+      parameters:
+        - $ref: '#/components/parameters/ml.get_model_group::path.model_group_id'
+        - $ref: '#/components/parameters/_global::query.pretty'
+        - $ref: '#/components/parameters/_global::query.human'
+        - $ref: '#/components/parameters/_global::query.error_trace'
+        - $ref: '#/components/parameters/_global::query.source'
+        - $ref: '#/components/parameters/_global::query.filter_path'
+      responses:
+        '200':
+          $ref: '#/components/responses/ml.get_model_group@200'
+  /_plugins/_ml/models/_register:
+    post:
+      operationId: ml.register_model.0
+      x-operation-group: ml.register_model
+      description: Registers a model.
+      requestBody:
+        $ref: '#/components/requestBodies/ml.register_model'
+      responses:
+        '200':
+          $ref: '#/components/responses/ml.register_model@200'
+      parameters:
+        - $ref: '#/components/parameters/_global::query.pretty'
+        - $ref: '#/components/parameters/_global::query.human'
+        - $ref: '#/components/parameters/_global::query.error_trace'
+        - $ref: '#/components/parameters/_global::query.source'
+        - $ref: '#/components/parameters/_global::query.filter_path'
+  /_plugins/_ml/models/_search:
+    get:
+      operationId: ml.search_models.0
+      x-operation-group: ml.search_models
+      description: Searches for models.
+      requestBody:
+        $ref: '#/components/requestBodies/ml.search_models'
+      responses:
+        '200':
+          $ref: '#/components/responses/ml.search_models@200'
+      parameters:
+        - $ref: '#/components/parameters/_global::query.pretty'
+        - $ref: '#/components/parameters/_global::query.human'
+        - $ref: '#/components/parameters/_global::query.error_trace'
+        - $ref: '#/components/parameters/_global::query.source'
+        - $ref: '#/components/parameters/_global::query.filter_path'
+  /_plugins/_ml/models/{model_id}:
+    delete:
+      operationId: ml.delete_model.0
+      x-operation-group: ml.delete_model
+      description: Deletes a model.
+      parameters:
+        - $ref: '#/components/parameters/ml.delete_model::path.model_id'
+        - $ref: '#/components/parameters/_global::query.pretty'
+        - $ref: '#/components/parameters/_global::query.human'
+        - $ref: '#/components/parameters/_global::query.error_trace'
+        - $ref: '#/components/parameters/_global::query.source'
+        - $ref: '#/components/parameters/_global::query.filter_path'
+      responses:
+        '200':
+          $ref: '#/components/responses/ml.delete_model@200'
+  /_plugins/_ml/tasks/{task_id}:
+    get:
+      operationId: ml.get_task.0
+      x-operation-group: ml.get_task
+      description: Retrieves a task.
+      parameters:
+        - $ref: '#/components/parameters/ml.get_task::path.task_id'
+        - $ref: '#/components/parameters/_global::query.pretty'
+        - $ref: '#/components/parameters/_global::query.human'
+        - $ref: '#/components/parameters/_global::query.error_trace'
+        - $ref: '#/components/parameters/_global::query.source'
+        - $ref: '#/components/parameters/_global::query.filter_path'
+      responses:
+        '200':
+          $ref: '#/components/responses/ml.get_task@200'
   /_plugins/_notifications/channels:
     get:
       operationId: notifications.list_channels.0
@@ -8208,6 +8315,8 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/index@200'
+        '201':
+          $ref: '#/components/responses/index@201'
   /{index}/_doc/{id}:
     delete:
       operationId: delete.0
@@ -8322,6 +8431,8 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/index@200'
+        '201':
+          $ref: '#/components/responses/index@201'
     put:
       operationId: index.2
       x-operation-group: index
@@ -8353,6 +8464,8 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/index@200'
+        '201':
+          $ref: '#/components/responses/index@201'
   /{index}/_explain/{id}:
     get:
       operationId: explain.0
@@ -10278,8 +10391,8 @@ paths:
         - $ref: '#/components/parameters/_global::query.source'
         - $ref: '#/components/parameters/_global::query.filter_path'
       deprecated: true
-    put:
-      operationId: security.cache.3_superseded
+    post:
+      operationId: security.cache.2_superseded
       x-operation-group: security.cache
       x-version-added: '1.0'
       x-ignorable: true
@@ -10294,8 +10407,8 @@ paths:
         - $ref: '#/components/parameters/_global::query.source'
         - $ref: '#/components/parameters/_global::query.filter_path'
       deprecated: true
-    post:
-      operationId: security.cache.2_superseded
+    put:
+      operationId: security.cache.3_superseded
       x-operation-group: security.cache
       x-version-added: '1.0'
       x-ignorable: true
@@ -10369,25 +10482,6 @@ paths:
           $ref: '#/components/responses/security.create_user@200'
       deprecated: true
       x-ignorable: true
-    delete:
-      operationId: security.delete_user.0_superseded
-      x-operation-group: security.delete_user
-      x-version-added: '1.0'
-      description: Delete the specified user.
-      externalDocs:
-        url: https://opensearch.org/docs/latest/security/access-control/api/#delete-user
-      parameters:
-        - $ref: '#/components/parameters/security.delete_user::path.username'
-        - $ref: '#/components/parameters/_global::query.pretty'
-        - $ref: '#/components/parameters/_global::query.human'
-        - $ref: '#/components/parameters/_global::query.error_trace'
-        - $ref: '#/components/parameters/_global::query.source'
-        - $ref: '#/components/parameters/_global::query.filter_path'
-      responses:
-        '200':
-          $ref: '#/components/responses/security.delete_user@200'
-      deprecated: true
-      x-ignorable: true
     patch:
       operationId: security.patch_user.0_superseded
       x-operation-group: security.patch_user
@@ -10407,6 +10501,25 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/security.patch_user@200'
+      deprecated: true
+      x-ignorable: true
+    delete:
+      operationId: security.delete_user.0_superseded
+      x-operation-group: security.delete_user
+      x-version-added: '1.0'
+      description: Delete the specified user.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#delete-user
+      parameters:
+        - $ref: '#/components/parameters/security.delete_user::path.username'
+        - $ref: '#/components/parameters/_global::query.pretty'
+        - $ref: '#/components/parameters/_global::query.human'
+        - $ref: '#/components/parameters/_global::query.error_trace'
+        - $ref: '#/components/parameters/_global::query.source'
+        - $ref: '#/components/parameters/_global::query.filter_path'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.delete_user@200'
       deprecated: true
       x-ignorable: true
   /_opendistro/_security/api/internalusers/{name}/authtoken:
@@ -10508,25 +10621,6 @@ paths:
           $ref: '#/components/responses/security.create_role@200'
       deprecated: true
       x-ignorable: true
-    delete:
-      operationId: security.delete_role.0_superseded
-      x-operation-group: security.delete_role
-      x-version-added: '1.0'
-      description: Delete the specified role.
-      externalDocs:
-        url: https://opensearch.org/docs/latest/security/access-control/api/#delete-role
-      parameters:
-        - $ref: '#/components/parameters/security.delete_role::path.role'
-        - $ref: '#/components/parameters/_global::query.pretty'
-        - $ref: '#/components/parameters/_global::query.human'
-        - $ref: '#/components/parameters/_global::query.error_trace'
-        - $ref: '#/components/parameters/_global::query.source'
-        - $ref: '#/components/parameters/_global::query.filter_path'
-      responses:
-        '200':
-          $ref: '#/components/responses/security.delete_role@200'
-      deprecated: true
-      x-ignorable: true
     patch:
       operationId: security.patch_role.0_superseded
       x-operation-group: security.patch_role
@@ -10548,6 +10642,25 @@ paths:
           $ref: '#/components/responses/security.patch_role@200'
         '400':
           $ref: '#/components/responses/security.patch_role@400'
+      deprecated: true
+      x-ignorable: true
+    delete:
+      operationId: security.delete_role.0_superseded
+      x-operation-group: security.delete_role
+      x-version-added: '1.0'
+      description: Delete the specified role.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#delete-role
+      parameters:
+        - $ref: '#/components/parameters/security.delete_role::path.role'
+        - $ref: '#/components/parameters/_global::query.pretty'
+        - $ref: '#/components/parameters/_global::query.human'
+        - $ref: '#/components/parameters/_global::query.error_trace'
+        - $ref: '#/components/parameters/_global::query.source'
+        - $ref: '#/components/parameters/_global::query.filter_path'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.delete_role@200'
       deprecated: true
       x-ignorable: true
   /_opendistro/_security/api/rolesmapping/{name}:
@@ -10591,25 +10704,6 @@ paths:
           $ref: '#/components/responses/security.create_role_mapping@200'
       deprecated: true
       x-ignorable: true
-    delete:
-      operationId: security.delete_role_mapping.0_superseded
-      x-operation-group: security.delete_role_mapping
-      x-version-added: '1.0'
-      description: Deletes the specified role mapping.
-      externalDocs:
-        url: https://opensearch.org/docs/latest/security/access-control/api/#delete-role-mapping
-      parameters:
-        - $ref: '#/components/parameters/security.delete_role_mapping::path.role'
-        - $ref: '#/components/parameters/_global::query.pretty'
-        - $ref: '#/components/parameters/_global::query.human'
-        - $ref: '#/components/parameters/_global::query.error_trace'
-        - $ref: '#/components/parameters/_global::query.source'
-        - $ref: '#/components/parameters/_global::query.filter_path'
-      responses:
-        '200':
-          $ref: '#/components/responses/security.delete_role_mapping@200'
-      deprecated: true
-      x-ignorable: true
     patch:
       operationId: security.patch_role_mapping.0_superseded
       x-operation-group: security.patch_role_mapping
@@ -10631,6 +10725,25 @@ paths:
           $ref: '#/components/responses/security.patch_role_mapping@200'
         '400':
           $ref: '#/components/responses/security.patch_role_mapping@400'
+      deprecated: true
+      x-ignorable: true
+    delete:
+      operationId: security.delete_role_mapping.0_superseded
+      x-operation-group: security.delete_role_mapping
+      x-version-added: '1.0'
+      description: Deletes the specified role mapping.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#delete-role-mapping
+      parameters:
+        - $ref: '#/components/parameters/security.delete_role_mapping::path.role'
+        - $ref: '#/components/parameters/_global::query.pretty'
+        - $ref: '#/components/parameters/_global::query.human'
+        - $ref: '#/components/parameters/_global::query.error_trace'
+        - $ref: '#/components/parameters/_global::query.source'
+        - $ref: '#/components/parameters/_global::query.filter_path'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.delete_role_mapping@200'
       deprecated: true
       x-ignorable: true
   /_opendistro/_security/api/securityconfig:
@@ -10973,27 +11086,6 @@ paths:
           $ref: '#/components/responses/security.create_tenant@400'
       deprecated: true
       x-ignorable: true
-    delete:
-      operationId: security.delete_tenant.0_superseded
-      x-operation-group: security.delete_tenant
-      x-version-added: '1.0'
-      description: Delete the specified tenant.
-      externalDocs:
-        url: https://opensearch.org/docs/latest/security/access-control/api/#delete-action-group
-      parameters:
-        - $ref: '#/components/parameters/security.delete_tenant::path.tenant'
-        - $ref: '#/components/parameters/_global::query.pretty'
-        - $ref: '#/components/parameters/_global::query.human'
-        - $ref: '#/components/parameters/_global::query.error_trace'
-        - $ref: '#/components/parameters/_global::query.source'
-        - $ref: '#/components/parameters/_global::query.filter_path'
-      responses:
-        '200':
-          $ref: '#/components/responses/security.delete_tenant@200'
-        '400':
-          $ref: '#/components/responses/security.delete_tenant@400'
-      deprecated: true
-      x-ignorable: true
     patch:
       operationId: security.patch_tenant.0_superseded
       x-operation-group: security.patch_tenant
@@ -11015,6 +11107,27 @@ paths:
           $ref: '#/components/responses/security.patch_tenant@200'
         '400':
           $ref: '#/components/responses/security.patch_tenant@400'
+      deprecated: true
+      x-ignorable: true
+    delete:
+      operationId: security.delete_tenant.0_superseded
+      x-operation-group: security.delete_tenant
+      x-version-added: '1.0'
+      description: Delete the specified tenant.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#delete-action-group
+      parameters:
+        - $ref: '#/components/parameters/security.delete_tenant::path.tenant'
+        - $ref: '#/components/parameters/_global::query.pretty'
+        - $ref: '#/components/parameters/_global::query.human'
+        - $ref: '#/components/parameters/_global::query.error_trace'
+        - $ref: '#/components/parameters/_global::query.source'
+        - $ref: '#/components/parameters/_global::query.filter_path'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.delete_tenant@200'
+        '400':
+          $ref: '#/components/responses/security.delete_tenant@400'
       deprecated: true
       x-ignorable: true
   /_opendistro/_security/api/user:
@@ -11430,7 +11543,7 @@ components:
       in: query
       name: refresh
       description: |-
-        If `true`, Opensearch refreshes the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` do nothing with refreshes.
+        If `true`, OpenSearch refreshes the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` do nothing with refreshes.
         Valid values: `true`, `false`, `wait_for`.
       schema:
         $ref: '#/components/schemas/_common:Refresh'
@@ -12989,7 +13102,7 @@ components:
         A comma-separated list of snapshot repositories used to limit the request.
         Accepts wildcard expressions.
         `_all` returns all repositories.
-        If any repository fails during the request, Opensearch returns an error.
+        If any repository fails during the request, OpenSearch returns an error.
       required: true
       schema:
         $ref: '#/components/schemas/_common:Names'
@@ -13706,10 +13819,10 @@ components:
       name: name
       description: |-
         Name of the component template to create.
-        Opensearch includes the following built-in component templates: `logs-mappings`; 'logs-settings`; `metrics-mappings`; `metrics-settings`;`synthetics-mapping`; `synthetics-settings`.
-        Opensearch Agent uses these templates to configure backing indices for its data streams.
-        If you use Opensearch Agent and want to overwrite one of these templates, set the `version` for your replacement template higher than the current version.
-        If you don’t use Opensearch Agent and want to disable all built-in component and index templates, set `stack.templates.enabled` to `false` using the cluster update settings API.
+        OpenSearch includes the following built-in component templates: `logs-mappings`; 'logs-settings`; `metrics-mappings`; `metrics-settings`;`synthetics-mapping`; `synthetics-settings`.
+        OpenSearch Agent uses these templates to configure backing indices for its data streams.
+        If you use OpenSearch Agent and want to overwrite one of these templates, set the `version` for your replacement template higher than the current version.
+        If you don’t use OpenSearch Agent and want to disable all built-in component and index templates, set `stack.templates.enabled` to `false` using the cluster update settings API.
       required: true
       schema:
         $ref: '#/components/schemas/_common:Name'
@@ -14091,8 +14204,8 @@ components:
       name: terminate_after
       description: |-
         Maximum number of documents to collect for each shard.
-        If a query reaches this limit, Opensearch terminates the query early.
-        Opensearch collects documents before sorting.
+        If a query reaches this limit, OpenSearch terminates the query early.
+        OpenSearch collects documents before sorting.
       schema:
         type: number
       style: form
@@ -14177,7 +14290,7 @@ components:
       in: query
       name: refresh
       description: |-
-        If `true`, Opensearch refreshes the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` do nothing with refreshes.
+        If `true`, OpenSearch refreshes the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` do nothing with refreshes.
         Valid values: `true`, `false`, `wait_for`.
       schema:
         $ref: '#/components/schemas/_common:Refresh'
@@ -14468,7 +14581,7 @@ components:
     delete_by_query::query.refresh:
       in: query
       name: refresh
-      description: If `true`, Opensearch refreshes all shards involved in the delete by query after the request completes.
+      description: If `true`, OpenSearch refreshes all shards involved in the delete by query after the request completes.
       schema:
         type: boolean
       style: form
@@ -14568,11 +14681,11 @@ components:
       name: terminate_after
       description: |-
         Maximum number of documents to collect for each shard.
-        If a query reaches this limit, Opensearch terminates the query early.
-        Opensearch collects documents before sorting.
+        If a query reaches this limit, OpenSearch terminates the query early.
+        OpenSearch collects documents before sorting.
         Use with caution.
-        Opensearch applies this parameter to each shard handling the request.
-        When possible, let Opensearch perform early termination automatically.
+        OpenSearch applies this parameter to each shard handling the request.
+        When possible, let OpenSearch perform early termination automatically.
         Avoid specifying this parameter for requests that target data streams with backing indices across multiple data tiers.
       schema:
         type: number
@@ -14680,7 +14793,7 @@ components:
       in: query
       name: refresh
       description: |-
-        If `true`, Opensearch refreshes the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` do nothing with refreshes.
+        If `true`, OpenSearch refreshes the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` do nothing with refreshes.
         Valid values: `true`, `false`, `wait_for`.
       schema:
         $ref: '#/components/schemas/_common:Refresh'
@@ -14784,7 +14897,7 @@ components:
     exists_source::query.refresh:
       in: query
       name: refresh
-      description: If `true`, Opensearch refreshes all shards involved in the delete by query after the request completes.
+      description: If `true`, OpenSearch refreshes all shards involved in the delete by query after the request completes.
       schema:
         type: boolean
       style: form
@@ -14870,7 +14983,7 @@ components:
     exists::query.refresh:
       in: query
       name: refresh
-      description: If `true`, Opensearch refreshes all shards involved in the delete by query after the request completes.
+      description: If `true`, OpenSearch refreshes all shards involved in the delete by query after the request completes.
       schema:
         type: boolean
       style: form
@@ -15143,7 +15256,7 @@ components:
     get_source::query.refresh:
       in: query
       name: refresh
-      description: If true, Opensearch refreshes the affected shards to make this operation visible to search. If false, do nothing with refreshes.
+      description: If true, OpenSearch refreshes the affected shards to make this operation visible to search. If false, do nothing with refreshes.
       schema:
         type: boolean
       style: form
@@ -15223,7 +15336,7 @@ components:
     get::query.refresh:
       in: query
       name: refresh
-      description: If true, Opensearch refreshes the affected shards to make this operation visible to search. If false, do nothing with refreshes.
+      description: If true, OpenSearch refreshes the affected shards to make this operation visible to search. If false, do nothing with refreshes.
       schema:
         type: boolean
       style: form
@@ -15315,7 +15428,7 @@ components:
       in: query
       name: refresh
       description: |-
-        If `true`, Opensearch refreshes the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` do nothing with refreshes.
+        If `true`, OpenSearch refreshes the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` do nothing with refreshes.
         Valid values: `true`, `false`, `wait_for`.
       schema:
         $ref: '#/components/schemas/_common:Refresh'
@@ -16176,7 +16289,7 @@ components:
       name: wait_if_ongoing
       description: |-
         If `true`, the flush operation blocks until execution when another flush operation is running.
-        If `false`, Opensearch returns an error if you request a flush when another flush operation is running.
+        If `false`, OpenSearch returns an error if you request a flush when another flush operation is running.
       schema:
         type: boolean
         default: true
@@ -17112,7 +17225,7 @@ components:
       in: query
       name: order
       description: |-
-        Order in which Opensearch applies this template if index
+        Order in which OpenSearch applies this template if index
         matches multiple templates.
 
         Templates with lower 'order' values are merged first. Templates with higher
@@ -18490,6 +18603,30 @@ components:
       schema:
         $ref: '#/components/schemas/_common:Fields'
       style: form
+    ml.delete_model_group::path.model_group_id:
+      name: model_group_id
+      in: path
+      required: true
+      schema:
+        type: string
+    ml.delete_model::path.model_id:
+      name: model_id
+      in: path
+      required: true
+      schema:
+        type: string
+    ml.get_model_group::path.model_group_id:
+      name: model_group_id
+      in: path
+      required: true
+      schema:
+        type: string
+    ml.get_task::path.task_id:
+      name: task_id
+      in: path
+      required: true
+      schema:
+        type: string
     msearch_template::path.index:
       in: path
       name: index
@@ -19890,7 +20027,7 @@ components:
       name: preference
       description: |-
         Nodes and shards used for the search.
-        By default, Opensearch selects from eligible nodes and shards using adaptive replica selection, accounting for allocation awareness. Valid values are:
+        By default, OpenSearch selects from eligible nodes and shards using adaptive replica selection, accounting for allocation awareness. Valid values are:
         `_only_local` to run the search only on shards on the local node;
         `_local` to, if possible, run the search on shards on the local node, or if not, select shards using the default method;
         `_only_nodes:<node-id>,<node-id>` to run the search on only the specified nodes IDs, where, if suitable shards exist on more than one selected node, use shards on those nodes using the default method, or if none of the specified nodes are available, select shards from any available node using the default method;
@@ -19906,7 +20043,7 @@ components:
       name: q
       description: |-
         Query in the Lucene query string syntax using query parameter search.
-        Query parameter searches do not support the full Opensearch Query DSL but are handy for testing.
+        Query parameter searches do not support the full OpenSearch Query DSL but are handy for testing.
       schema:
         type: string
       style: form
@@ -20046,11 +20183,11 @@ components:
       name: terminate_after
       description: |-
         Maximum number of documents to collect for each shard.
-        If a query reaches this limit, Opensearch terminates the query early.
-        Opensearch collects documents before sorting.
+        If a query reaches this limit, OpenSearch terminates the query early.
+        OpenSearch collects documents before sorting.
         Use with caution.
-        Opensearch applies this parameter to each shard handling the request.
-        When possible, let Opensearch perform early termination automatically.
+        OpenSearch applies this parameter to each shard handling the request.
+        When possible, let OpenSearch perform early termination automatically.
         Avoid specifying this parameter for requests that target data streams with backing indices across multiple data tiers.
         If set to `0` (default), the query does not terminate early.
       schema:
@@ -20620,7 +20757,7 @@ components:
     snapshot.get::query.verbose:
       in: query
       name: verbose
-      description: If true, returns additional information about each snapshot such as the version of Opensearch which took the snapshot, the start and end times of the snapshot, and the number of shards snapshotted.
+      description: If true, returns additional information about each snapshot such as the version of OpenSearch which took the snapshot, the start and end times of the snapshot, and the number of shards snapshotted.
       schema:
         type: boolean
       style: form
@@ -21250,7 +21387,7 @@ components:
     update_by_query::query.refresh:
       in: query
       name: refresh
-      description: If `true`, Opensearch refreshes affected shards to make the operation visible to search.
+      description: If `true`, OpenSearch refreshes affected shards to make the operation visible to search.
       schema:
         type: boolean
       style: form
@@ -21344,11 +21481,11 @@ components:
       name: terminate_after
       description: |-
         Maximum number of documents to collect for each shard.
-        If a query reaches this limit, Opensearch terminates the query early.
-        Opensearch collects documents before sorting.
+        If a query reaches this limit, OpenSearch terminates the query early.
+        OpenSearch collects documents before sorting.
         Use with caution.
-        Opensearch applies this parameter to each shard handling the request.
-        When possible, let Opensearch perform early termination automatically.
+        OpenSearch applies this parameter to each shard handling the request.
+        When possible, let OpenSearch perform early termination automatically.
         Avoid specifying this parameter for requests that target data streams with backing indices across multiple data tiers.
       schema:
         type: number
@@ -21451,7 +21588,7 @@ components:
       in: query
       name: refresh
       description: |-
-        If 'true', Opensearch refreshes the affected shards to make this operation
+        If 'true', OpenSearch refreshes the affected shards to make this operation
         visible to search, if 'wait_for' then wait for a refresh to make this operation
         visible to search, if 'false' do nothing with refreshes.
       schema:
@@ -21485,7 +21622,7 @@ components:
       name: timeout
       description: |-
         Period to wait for dynamic mapping updates and active shards.
-        This guarantees Opensearch waits for at least the timeout before failing.
+        This guarantees OpenSearch waits for at least the timeout before failing.
         The actual wait time could be longer, particularly when multiple waits occur.
       schema:
         $ref: '#/components/schemas/_common:Duration'
@@ -21801,7 +21938,7 @@ components:
                   Priority to determine index template precedence when a new data stream or index is created.
                   The index template with the highest priority is chosen.
                   If no priority is specified the template is treated as though it is of priority 0 (lowest priority).
-                  This number is not automatically generated by Opensearch.
+                  This number is not automatically generated by OpenSearch.
                 type: number
               version:
                 $ref: '#/components/schemas/_common:VersionNumber'
@@ -21894,7 +22031,7 @@ components:
                 $ref: '#/components/schemas/_common.mapping:TypeMapping'
               order:
                 description: |-
-                  Order in which Opensearch applies this template if index
+                  Order in which OpenSearch applies this template if index
                   matches multiple templates.
 
                   Templates with lower 'order' values are merged first. Templates with higher
@@ -21983,7 +22120,7 @@ components:
                   Priority to determine index template precedence when a new data stream or index is created.
                   The index template with the highest priority is chosen.
                   If no priority is specified the template is treated as though it is of priority 0 (lowest priority).
-                  This number is not automatically generated by Opensearch.
+                  This number is not automatically generated by OpenSearch.
                 type: number
               version:
                 $ref: '#/components/schemas/_common:VersionNumber'
@@ -22046,7 +22183,7 @@ components:
                 description: Description of the ingest pipeline.
                 type: string
               on_failure:
-                description: Processors to run immediately after a processor failure. Each processor supports a processor-level `on_failure` value. If a processor without an `on_failure` value fails, Opensearch uses this pipeline-level parameter as a fallback. The processors in this parameter run sequentially in the order specified. Opensearch will not attempt to run the pipeline's remaining processors.
+                description: Processors to run immediately after a processor failure. Each processor supports a processor-level `on_failure` value. If a processor without an `on_failure` value fails, OpenSearch uses this pipeline-level parameter as a fallback. The processors in this parameter run sequentially in the order specified. OpenSearch will not attempt to run the pipeline's remaining processors.
                 type: array
                 items:
                   $ref: '#/components/schemas/ingest._common:ProcessorContainer'
@@ -22123,6 +22260,78 @@ components:
                 $ref: '#/components/schemas/_common:Ids'
             description: Document identifiers; can be either `docs` (containing full document information) or `ids` (when index is provided in the URL.
       required: true
+    ml.register_model:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The model name.
+              version:
+                type: string
+                description: The model version.
+              model_format:
+                type: string
+                description: The portable format of the model file.
+                enum:
+                  - TORCH_SCRIPT
+                  - ONNX
+              description:
+                type: string
+                description: The model description.
+              model_group_id:
+                type: string
+                description: The ID of the model group to which to register the model.
+            required:
+              - name
+              - version
+              - model_format
+    ml.register_model_group:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The model group name.
+              description:
+                type: string
+                description: The model group description.
+              access_mode:
+                type: string
+                description: The model group access mode.
+                enum:
+                  - private
+                  - public
+                  - restricted
+              backend_roles:
+                type: array
+                items:
+                  type: string
+                description: The backend roles.
+              add_all_backend_roles:
+                type: boolean
+                description: The add all backend roles.
+            required:
+              - name
+    ml.search_models:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              query:
+                type: object
+                description: The query.
+              size:
+                type: integer
+                description: The number of models to return.
+            required:
+              - query
+              - size
     msearch:
       content:
         application/x-ndjson:
@@ -22346,7 +22555,7 @@ components:
                 description: If true, returns detailed information about score computation as part of a hit.
                 type: boolean
               ext:
-                description: Configuration of search extensions defined by Opensearch plugins.
+                description: Configuration of search extensions defined by OpenSearch plugins.
                 type: object
                 additionalProperties:
                   type: object
@@ -22436,11 +22645,11 @@ components:
               terminate_after:
                 description: |-
                   Maximum number of documents to collect for each shard.
-                  If a query reaches this limit, Opensearch terminates the query early.
-                  Opensearch collects documents before sorting.
+                  If a query reaches this limit, OpenSearch terminates the query early.
+                  OpenSearch collects documents before sorting.
                   Use with caution.
-                  Opensearch applies this parameter to each shard handling the request.
-                  When possible, let Opensearch perform early termination automatically.
+                  OpenSearch applies this parameter to each shard handling the request.
+                  When possible, let OpenSearch perform early termination automatically.
                   Avoid specifying this parameter for requests that target data streams with backing indices across multiple data tiers.
                   If set to `0` (default), the query does not terminate early.
                 type: number
@@ -23582,6 +23791,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/_common:WriteResponseBase'
+    index@201:
+      description: ''
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/_common:WriteResponseBase'
     indices.add_block@200:
       description: ''
       content:
@@ -24113,7 +24328,7 @@ components:
               tagline:
                 type: string
               version:
-                $ref: '#/components/schemas/_common:OpensearchVersionInfo'
+                $ref: '#/components/schemas/_common:OpenSearchVersionInfo'
             required:
               - cluster_name
               - cluster_uuid
@@ -24191,6 +24406,103 @@ components:
                   $ref: '#/components/schemas/_core.mget:ResponseItem'
             required:
               - docs
+    ml.delete_model_group@200:
+      content:
+        application/json:
+          schema:
+            type: object
+    ml.delete_model@200:
+      content:
+        application/json:
+          schema:
+            type: object
+    ml.get_model_group@200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The model group name.
+              latest_version:
+                type: number
+                description: The latest version.
+              description:
+                type: string
+                description: The model group description.
+              access:
+                type: string
+                description: The model group access.
+            required:
+              - name
+              - latest_version
+              - description
+              - access
+    ml.get_task@200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              model_id:
+                type: string
+                description: The model ID.
+              state:
+                type: string
+                description: The state.
+                enum:
+                  - CREATED
+                  - RUNNING
+                  - COMPLETED
+                  - FAILED
+                  - CANCELLED
+                  - COMPLETED_WITH_ERROR
+            required:
+              - state
+    ml.register_model_group@200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              model_group_id:
+                type: string
+                description: The model group ID.
+              status:
+                type: string
+                description: The status.
+            required:
+              - model_group_id
+              - status
+    ml.register_model@200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: string
+                description: The task ID.
+              model_id:
+                type: string
+                description: The model ID.
+              status:
+                type: string
+                description: The status.
+            required:
+              - task_id
+              - status
+    ml.search_models@200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              hits:
+                $ref: '#/components/schemas/ml._common:SearchModelHits'
+            required:
+              - hits
     msearch_template@200:
       description: ''
       content:
@@ -25721,7 +26033,7 @@ components:
     _common:DateTime:
       description: |-
         A date and time, either as a string whose format can depend on the context (defaulting to ISO 8601), or a
-        number of milliseconds since the Epoch. Opensearch accepts both as input, but will generally output a string
+        number of milliseconds since the Epoch. OpenSearch accepts both as input, but will generally output a string
         representation.
       oneOf:
         - type: string
@@ -25774,7 +26086,7 @@ components:
           description: |-
             Total number of deleted documents across all primary shards assigned to selected nodes.
             This number is based on documents in Lucene segments.
-            Opensearch reclaims the disk space of deleted Lucene documents when a segment is merged.
+            OpenSearch reclaims the disk space of deleted Lucene documents when a segment is merged.
           type: number
       required:
         - count
@@ -26467,7 +26779,7 @@ components:
         - h2
         - h3
         - z
-    _common:OpensearchVersionInfo:
+    _common:OpenSearchVersionInfo:
       type: object
       properties:
         build_date:
@@ -26479,6 +26791,8 @@ components:
         build_snapshot:
           type: boolean
         build_type:
+          type: string
+        distribution:
           type: string
         lucene_version:
           $ref: '#/components/schemas/_common:VersionString'
@@ -26493,6 +26807,7 @@ components:
         - build_hash
         - build_snapshot
         - build_type
+        - distribution
         - lucene_version
         - minimum_index_compatibility_version
         - minimum_wire_compatibility_version
@@ -33271,7 +33586,7 @@ components:
             script:
               $ref: '#/components/schemas/_common:Script'
             time_series_dimension:
-              description: For internal use by Opensearch only. Marks the field as a time series dimension. Defaults to false.
+              description: For internal use by OpenSearch only. Marks the field as a time series dimension. Defaults to false.
               type: boolean
             type:
               type: string
@@ -33333,7 +33648,7 @@ components:
             split_queries_on_whitespace:
               type: boolean
             time_series_dimension:
-              description: For internal use by Opensearch only. Marks the field as a time series dimension. Defaults to false.
+              description: For internal use by OpenSearch only. Marks the field as a time series dimension. Defaults to false.
               type: boolean
             type:
               type: string
@@ -33441,7 +33756,7 @@ components:
             time_series_metric:
               $ref: '#/components/schemas/_common.mapping:TimeSeriesMetricType'
             time_series_dimension:
-              description: For internal use by Opensearch only. Marks the field as a time series dimension. Defaults to false.
+              description: For internal use by OpenSearch only. Marks the field as a time series dimension. Defaults to false.
               type: boolean
     _common.mapping:ObjectProperty:
       allOf:
@@ -34133,7 +34448,7 @@ components:
               description: |-
                 One or more query clauses.
                 Returned documents must match one or more of these queries.
-                If a document matches multiple queries, Opensearch uses the highest relevance score.
+                If a document matches multiple queries, OpenSearch uses the highest relevance score.
               type: array
               items:
                 $ref: '#/components/schemas/_common.query_dsl:QueryContainer'
@@ -36277,7 +36592,7 @@ components:
           description: If true, returns detailed information about score computation as part of a hit.
           type: boolean
         ext:
-          description: Configuration of search extensions defined by Opensearch plugins.
+          description: Configuration of search extensions defined by OpenSearch plugins.
           type: object
           additionalProperties:
             type: object
@@ -36354,7 +36669,7 @@ components:
         terminate_after:
           description: |-
             Maximum number of documents to collect for each shard. If a query reaches this
-            limit, Opensearch terminates the query early. Opensearch collects documents
+            limit, OpenSearch terminates the query early. OpenSearch collects documents
             before sorting. Defaults to 0, which does not terminate query execution early.
           type: number
         stats:
@@ -37951,8 +38266,8 @@ components:
         disk.used:
           description: |-
             Total disk space in use.
-            Opensearch retrieves this metric from the node’s operating system (OS).
-            The metric includes disk space for: Opensearch, including the translog and unassigned shards; the node’s operating system; any other applications or files on the node.
+            OpenSearch retrieves this metric from the node’s operating system (OS).
+            The metric includes disk space for: OpenSearch, including the translog and unassigned shards; the node’s operating system; any other applications or files on the node.
             Unlike `disk.indices`, this metric does not double-count disk space for hard-linked files.
           oneOf:
             - $ref: '#/components/schemas/_common:ByteSize'
@@ -37960,8 +38275,8 @@ components:
               type: string
         disk.avail:
           description: |-
-            Free disk space available to Opensearch.
-            Opensearch retrieves this metric from the node’s operating system.
+            Free disk space available to OpenSearch.
+            OpenSearch retrieves this metric from the node’s operating system.
             Disk-based shard allocation uses this metric to assign shards to nodes based on available disk space.
           oneOf:
             - $ref: '#/components/schemas/_common:ByteSize'
@@ -38575,13 +38890,13 @@ components:
         version:
           $ref: '#/components/schemas/_common:VersionString'
         flavor:
-          description: The Opensearch distribution flavor.
+          description: The OpenSearch distribution flavor.
           type: string
         type:
-          description: The Opensearch distribution type.
+          description: The OpenSearch distribution type.
           type: string
         build:
-          description: The Opensearch build hash.
+          description: The OpenSearch build hash.
           type: string
         jdk:
           description: The Java version.
@@ -38988,7 +39303,7 @@ components:
         generation:
           description: |-
             The segment generation number.
-            Opensearch increments this generation number for each segment written then uses this number to derive the segment name.
+            OpenSearch increments this generation number for each segment written then uses this number to derive the segment name.
           type: string
         docs.count:
           description: |-
@@ -39001,7 +39316,7 @@ components:
             The number of deleted documents in the segment, which might be higher or lower than the number of delete operations you have performed.
             This number excludes deletes that were performed recently and do not yet belong to a segment.
             Deleted documents are cleaned up by the automatic merge process if it makes sense to do so.
-            Also, Opensearch creates extra deleted documents to internally track the recent history of operations on a shard.
+            Also, OpenSearch creates extra deleted documents to internally track the recent history of operations on a shard.
           type: string
         size:
           $ref: '#/components/schemas/_common:ByteSize'
@@ -39011,7 +39326,7 @@ components:
           description: |-
             If `true`, the segment is synced to disk.
             Segments that are synced can survive a hard reboot.
-            If `false`, the data from uncommitted segments is also stored in the transaction log so that Opensearch is able to replay changes on the next start.
+            If `false`, the data from uncommitted segments is also stored in the transaction log so that OpenSearch is able to replay changes on the next start.
           type: string
         searchable:
           description: |-
@@ -40162,7 +40477,7 @@ components:
           description: |-
             Total number of bytes available to JVM in file stores across all selected nodes.
             Depending on operating system or process-level restrictions, this number may be less than `nodes.fs.free_in_byes`.
-            This is the actual amount of free disk space the selected Opensearch nodes can use.
+            This is the actual amount of free disk space the selected OpenSearch nodes can use.
           type: number
         free_in_bytes:
           description: Total number of unallocated bytes in file stores across all selected nodes.
@@ -40399,7 +40714,7 @@ components:
         os:
           $ref: '#/components/schemas/cluster.stats:ClusterOperatingSystem'
         packaging_types:
-          description: Contains statistics about Opensearch distributions installed on selected nodes.
+          description: Contains statistics about OpenSearch distributions installed on selected nodes.
           type: array
           items:
             $ref: '#/components/schemas/cluster.stats:NodePackagingType'
@@ -40413,7 +40728,7 @@ components:
         process:
           $ref: '#/components/schemas/cluster.stats:ClusterProcess'
         versions:
-          description: Array of Opensearch versions used on selected nodes.
+          description: Array of OpenSearch versions used on selected nodes.
           type: array
           items:
             $ref: '#/components/schemas/_common:VersionString'
@@ -40696,7 +41011,7 @@ components:
           description: Number of selected nodes using the distribution flavor and file type.
           type: number
         flavor:
-          description: Type of Opensearch distribution. This is always `default`.
+          description: Type of OpenSearch distribution. This is always `default`.
           type: string
         type:
           description: File type (such as `tar` or `zip`) used for the distribution package.
@@ -40924,7 +41239,7 @@ components:
         status:
           $ref: '#/components/schemas/_common:HealthStatus'
         system:
-          description: If `true`, the data stream is created and managed by an Opensearch stack component and cannot be modified through normal user interaction.
+          description: If `true`, the data stream is created and managed by an OpenSearch stack component and cannot be modified through normal user interaction.
           type: boolean
         template:
           $ref: '#/components/schemas/_common:Name'
@@ -41417,7 +41732,7 @@ components:
             Priority to determine index template precedence when a new data stream or index is created.
             The index template with the highest priority is chosen.
             If no priority is specified the template is treated as though it is of priority 0 (lowest priority).
-            This number is not automatically generated by Opensearch.
+            This number is not automatically generated by OpenSearch.
           type: number
         _meta:
           $ref: '#/components/schemas/_common:Metadata'
@@ -41502,7 +41817,7 @@ components:
         limit:
           description: |-
             [preview] This functionality is in technical preview and may be changed or removed in a future release.
-            Opensearch will work to fix any issues, but features in technical preview are not subject to the support SLA of official GA features.
+            OpenSearch will work to fix any issues, but features in technical preview are not subject to the support SLA of official GA features.
           type: number
     indices._common:MappingLimitSettingsFieldNameLength:
       type: object
@@ -43756,7 +44071,7 @@ components:
               items:
                 $ref: '#/components/schemas/ingest._common:UserAgentProperty'
             regex_file:
-              description: The name of the file in the `config/ingest-user-agent` directory containing the regular expressions for parsing the user agent string. Both the directory and the file have to be created before starting Opensearch. If not specified, ingest-user-agent will use the `regexes.yaml` from uap-core it ships with.
+              description: The name of the file in the `config/ingest-user-agent` directory containing the regular expressions for parsing the user agent string. Both the directory and the file have to be created before starting OpenSearch. If not specified, ingest-user-agent will use the `regexes.yaml` from uap-core it ships with.
               type: string
             target_field:
               $ref: '#/components/schemas/_common:Field'
@@ -43856,6 +44171,45 @@ components:
         - missing
         - popular
         - always
+    ml._common:HitsTotal:
+      type: object
+      properties:
+        value:
+          type: integer
+          description: The total number of hits.
+        relation:
+          type: string
+          description: The relation.
+      required:
+        - value
+        - relation
+    ml._common:SearchModelHits:
+      type: object
+      properties:
+        total:
+          $ref: '#/components/schemas/ml._common:HitsTotal'
+        hits:
+          type: array
+          items:
+            $ref: '#/components/schemas/ml._common:SearchModelHitsHit'
+      required:
+        - total
+        - hits
+    ml._common:SearchModelHitsHit:
+      type: object
+      properties:
+        _index:
+          type: string
+          description: The index.
+        _id:
+          type: string
+          description: The hit ID.
+        model_id:
+          type: string
+          description: The model ID.
+      required:
+        - _id
+        - model_id
     nodes._common:AdaptiveSelection:
       type: object
       properties:
@@ -43912,13 +44266,13 @@ components:
       type: object
       properties:
         control_group:
-          description: The `cpu` control group to which the Opensearch process belongs.
+          description: The `cpu` control group to which the OpenSearch process belongs.
           type: string
         cfs_period_micros:
-          description: The period of time, in microseconds, for how regularly all tasks in the same cgroup as the Opensearch process should have their access to CPU resources reallocated.
+          description: The period of time, in microseconds, for how regularly all tasks in the same cgroup as the OpenSearch process should have their access to CPU resources reallocated.
           type: number
         cfs_quota_micros:
-          description: The total amount of time, in microseconds, for which all tasks in the same cgroup as the Opensearch process can run during one period `cfs_period_micros`.
+          description: The total amount of time, in microseconds, for which all tasks in the same cgroup as the OpenSearch process can run during one period `cfs_period_micros`.
           type: number
         stat:
           $ref: '#/components/schemas/nodes._common:CgroupCpuStat'
@@ -43929,7 +44283,7 @@ components:
           description: The number of reporting periods (as specified by `cfs_period_micros`) that have elapsed.
           type: number
         number_of_times_throttled:
-          description: The number of times all tasks in the same cgroup as the Opensearch process have been throttled.
+          description: The number of times all tasks in the same cgroup as the OpenSearch process have been throttled.
           type: number
         time_throttled_nanos:
           $ref: '#/components/schemas/_common:DurationValueUnitNanos'
@@ -43937,17 +44291,17 @@ components:
       type: object
       properties:
         control_group:
-          description: The `memory` control group to which the Opensearch process belongs.
+          description: The `memory` control group to which the OpenSearch process belongs.
           type: string
         limit_in_bytes:
           description: |-
-            The maximum amount of user memory (including file cache) allowed for all tasks in the same cgroup as the Opensearch process.
+            The maximum amount of user memory (including file cache) allowed for all tasks in the same cgroup as the OpenSearch process.
             This value can be too big to store in a `long`, so is returned as a string so that the value returned can exactly match what the underlying operating system interface returns.
             Any value that is too large to parse into a `long` almost certainly means no limit has been set for the cgroup.
           type: string
         usage_in_bytes:
           description: |-
-            The total current memory usage by processes in the cgroup, in bytes, by all tasks in the same cgroup as the Opensearch process.
+            The total current memory usage by processes in the cgroup, in bytes, by all tasks in the same cgroup as the OpenSearch process.
             This value is stored as a string for consistency with `limit_in_bytes`.
           type: string
     nodes._common:Client:
@@ -44081,7 +44435,7 @@ components:
       type: object
       properties:
         control_group:
-          description: The `cpuacct` control group to which the Opensearch process belongs.
+          description: The `cpuacct` control group to which the OpenSearch process belongs.
           type: string
         usage_nanos:
           $ref: '#/components/schemas/_common:DurationValueUnitNanos'
@@ -44184,13 +44538,13 @@ components:
           description: |-
             Total disk space available to this Java virtual machine on all file stores.
             Depending on OS or process level restrictions, this might appear less than `free`.
-            This is the actual amount of free disk space the Opensearch node can utilise.
+            This is the actual amount of free disk space the OpenSearch node can utilise.
           type: string
         available_in_bytes:
           description: |-
             Total number of bytes available to this Java virtual machine on all file stores.
             Depending on OS or process level restrictions, this might appear less than `free_in_bytes`.
-            This is the actual amount of free disk space the Opensearch node can utilise.
+            This is the actual amount of free disk space the OpenSearch node can utilise.
           type: number
         free:
           description: Total unallocated disk space in all file stores.
@@ -44297,26 +44651,26 @@ components:
           description: The Linux device name.
           type: string
         operations:
-          description: The total number of read and write operations for the device completed since starting Opensearch.
+          description: The total number of read and write operations for the device completed since starting OpenSearch.
           type: number
         read_kilobytes:
-          description: The total number of kilobytes read for the device since starting Opensearch.
+          description: The total number of kilobytes read for the device since starting OpenSearch.
           type: number
         read_operations:
-          description: The total number of read operations for the device completed since starting Opensearch.
+          description: The total number of read operations for the device completed since starting OpenSearch.
           type: number
         write_kilobytes:
-          description: The total number of kilobytes written for the device since starting Opensearch.
+          description: The total number of kilobytes written for the device since starting OpenSearch.
           type: number
         write_operations:
-          description: The total number of write operations for the device completed since starting Opensearch.
+          description: The total number of write operations for the device completed since starting OpenSearch.
           type: number
     nodes._common:IoStats:
       type: object
       properties:
         devices:
           description: |-
-            Array of disk metrics for each device that is backing an Opensearch data path.
+            Array of disk metrics for each device that is backing an OpenSearch data path.
             These disk metrics are probed periodically and averages between the last probe and the current probe are computed.
           type: array
           items:
