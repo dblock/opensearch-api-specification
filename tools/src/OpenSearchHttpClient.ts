@@ -79,7 +79,8 @@ export class OpenSearchHttpClient {
           password: opts.password
         }
         : undefined,
-      httpsAgent: new https.Agent({ rejectUnauthorized: !(opts?.insecure ?? DEFAULT_INSECURE) })
+      httpsAgent: new https.Agent({ rejectUnauthorized: !(opts?.insecure ?? DEFAULT_INSECURE) }),
+      responseType: 'arraybuffer',
     })
   }
 

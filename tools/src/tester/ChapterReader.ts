@@ -43,7 +43,7 @@ export default class ChapterReader {
         return qs.stringify(params, { arrayFormat: 'comma' })
       }
     }).then(r => {
-      this.logger.info(`<= ${r.status} (${r.headers['content-type']}) | ${to_json(r.data)}`)
+      this.logger.info(`<= ${r.status} (${r.headers['content-type']}) | ${r.data?.length ?? 0} byte(s)`)
       response.status = r.status
       response.content_type = r.headers['content-type'].split(';')[0]
       response.payload = r.data
@@ -54,11 +54,21 @@ export default class ChapterReader {
       }
       response.status = e.response.status
       response.content_type = e.response.headers['content-type'].split(';')[0]
-      response.payload = e.response.data?.error
-      response.message = e.response.data?.error?.reason ?? e.response.statusText
+
+      try {
+        if (e.response.data !== undefined) {
+          const data = Buffer.from(e.response.data as string, 'binary').toString()
+          const payload = JSON.parse(data)
+          response.payload = payload?.error
+          response.message = payload.error?.reason ?? e.response.statusText
+        }
+      } catch {
+        // ignore
+      }
+
       response.error = e
 
-      this.logger.info(`<= ${response.status} (${response.content_type}) | ${to_json(response.payload ?? response.message)}`)
+      this.logger.info(`<= ${response.status} (${response.content_type}) | ${(response.payload ?? response.message ?? '').length} byte(s)`)
     })
     return response as ActualResponse
   }

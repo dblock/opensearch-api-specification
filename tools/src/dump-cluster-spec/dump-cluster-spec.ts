@@ -33,7 +33,7 @@ async function main (opts: CommandOpts): Promise<void> {
 
   const cluster_spec = await client.get('/_plugins/api')
 
-  write_yaml(opts.output, cluster_spec.data)
+  write_yaml(opts.output, Buffer.from(cluster_spec.data as string, 'binary').toString())
 }
 
 const command = new Command()

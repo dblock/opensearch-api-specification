@@ -19,16 +19,21 @@ import { ChapterOutput } from './ChapterOutput'
 import { Operation, atomizeChangeset, diff } from 'json-diff-ts'
 import YAML from 'yaml'
 import _ from 'lodash'
+import CBOR from 'cbor'
+import { Logger } from 'Logger'
+import { to_json } from '../helpers'
 
 export default class ChapterEvaluator {
+  private readonly logger: Logger
   private readonly _operation_locator: OperationLocator
   private readonly _chapter_reader: ChapterReader
   private readonly _schema_validator: SchemaValidator
 
-  constructor(spec_parser: OperationLocator, chapter_reader: ChapterReader, schema_validator: SchemaValidator) {
+  constructor(spec_parser: OperationLocator, chapter_reader: ChapterReader, schema_validator: SchemaValidator, logger: Logger) {
     this._operation_locator = spec_parser
     this._chapter_reader = chapter_reader
     this._schema_validator = schema_validator
+    this.logger = logger
   }
 
   async evaluate(chapter: Chapter, skip: boolean, story_outputs: StoryOutputs): Promise<ChapterEvaluation> {
@@ -88,6 +93,7 @@ export default class ChapterEvaluator {
     if (expected_payload == null) return { result: Result.PASSED }
     const content_type = response.content_type ?? 'application/json'
     const payload = this.#deserialize_payload(response.payload, content_type)
+    this.logger.info(`${to_json(payload)}`)
     const delta = atomizeChangeset(diff(expected_payload, payload))
     const messages: string[] = _.compact(delta.map((value, _index, _array) => {
       switch (value.type) {
@@ -111,9 +117,13 @@ export default class ChapterEvaluator {
 
   #deserialize_payload(payload: any, content_type: string): any {
     if (payload === undefined) return undefined
+    const payload_data = payload as string
     switch (content_type) {
-      case 'application/yaml': return YAML.parse(payload as string)
-      default: return payload
+      case 'text/plain': return Buffer.from(payload_data, 'binary').toString()
+      case 'application/json': return JSON.parse(Buffer.from(payload_data, 'binary').toString())
+      case 'application/yaml': return YAML.parse(Buffer.from(payload_data, 'binary').toString())
+      case 'application/cbor': return CBOR.decode(payload_data)
+      default: return Buffer.from(payload_data, 'binary').toString()
     }
   }
 }
