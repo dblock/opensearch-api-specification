@@ -2,8 +2,37 @@ $schema: ../../json_schemas/test_story.schema.yaml
 
 description: Test nodes endpoints.
 chapters:
-  - synopsis: Nodes with a json response.
+  - synopsis: Get all nodes.
     path: /_nodes
     method: GET
+    response:
+      status: 200
+  - synopsis: Nodes stats (node_id_or_metric/_all).
+    path: /_nodes/{node_id_or_metric}
+    method: GET
+    parameters:
+      node_id_or_metric: _all
+    response:
+      status: 200
+  - synopsis: Nodes stats (node_id_or_metric/fs).
+    path: /_nodes/{node_id_or_metric}
+    method: GET
+    parameters:
+      node_id_or_metric: fs
+    response:
+      status: 200
+  - synopsis: Nodes stats (stats/_all).
+    path: /_nodes/{node_id}/stats
+    method: GET
+    parameters:
+      node_id: _all
+    response:
+      status: 200
+  - synopsis: Nodes stats (stats/fs).
+    path: /_nodes/stats/{metric}
+    method: GET
+    parameters:
+      metric:
+        - fs
     response:
       status: 200
