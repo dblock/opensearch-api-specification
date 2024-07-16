@@ -55,7 +55,6 @@ chapters:
         - node.total: '1'
           status: yellow
           node.data: '1'
-          discovered_cluster_manager: 'true'
   - synopsis: Cat in different formats (format=yaml).
     method: GET
     path: /_cat/health
@@ -68,7 +67,6 @@ chapters:
         - node.total: '1'
           status: yellow
           node.data: '1'
-          discovered_cluster_manager: 'true'
   - synopsis: Cat in different formats (format=cbor).
     method: GET
     path: /_cat/health
@@ -81,7 +79,6 @@ chapters:
         - node.total: '1'
           status: yellow
           node.data: '1'
-          discovered_cluster_manager: 'true'
   - synopsis: Cat in different formats (format=smile).
     method: GET
     path: /_cat/health
@@ -94,4 +91,3 @@ chapters:
         - node.total: '1'
           status: yellow
           node.data: '1'
-          discovered_cluster_manager: 'true'
