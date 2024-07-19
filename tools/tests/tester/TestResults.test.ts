@@ -46,8 +46,10 @@ describe('TestResults', () => {
     const filename = 'coverage.json'
     test_results.write_coverage(filename)
     expect(JSON.parse(fs.readFileSync(filename, 'utf8'))).toEqual({
-      evaluated_paths_count: 1,
-      paths_count: 4
+      test_coverage: {
+        evaluated_paths_count: 1,
+        paths_count: 4
+      }
     })
     fs.unlinkSync(filename)
   })

@@ -8,6 +8,8 @@
 */
 
 export interface SpecTestCoverage {
-  paths_count: number
-  evaluated_paths_count: number
+  test_coverage: {
+    paths_count: number
+    evaluated_paths_count: number
+  }
 }
