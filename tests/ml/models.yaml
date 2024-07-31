@@ -27,6 +27,7 @@ chapters:
     output:
       task_id: payload.task_id
   - synopsis: Wait for task.
+    id: model
     path: /_plugins/_ml/tasks/{task_id}
     method: GET
     parameters:
@@ -38,3 +39,12 @@ chapters:
     retry:
       count: 3
       wait: 30000
+    output:
+      model_id: payload.model_id
+  - synopsis: Delete model.
+    path: /_plugins/_ml/models/{model_id}
+    method: DELETE
+    parameters:
+      model_id: ${model.model_id}
+    response:
+      status: 200

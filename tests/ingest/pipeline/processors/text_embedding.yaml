@@ -1,0 +1,111 @@
+$schema: ../../../../json_schemas/test_story.schema.yaml
+
+description: |
+  Test the creation of an ingest pipeline with a text embedding processor.
+prologues:
+  - path: /_cluster/settings
+    method: PUT
+    request_body:
+      payload:
+        persistent:
+          plugins:
+            ml_commons:
+              only_run_on_ml_node: false
+epilogues:
+  - path: /_ingest/pipeline/books_pipeline
+    method: DELETE
+    status: [200, 404]
+  - path: /_plugins/_ml/models/{model_id}
+    method: DELETE
+    parameters:
+      model_id: ${model.model_id}
+    status: [200, 404]
+  - path: /_plugins/_ml/model_groups/{model_group_id}
+    method: DELETE
+    status: [200, 404]
+    parameters:
+      model_group_id: ${model_group.model_group_id}
+  - path: /books
+    method: DELETE
+    status: [200, 404]      
+version: '>= 2.11'
+chapters:
+  - synopsis: Create a model group.
+    id: model_group
+    path: /_plugins/_ml/model_groups/_register
+    method: POST
+    request_body:
+      payload:
+        name: NLP_Group
+        description: Model group for NLP models
+    output:
+      model_group_id: payload.model_group_id
+  - synopsis: Register a model.
+    id: register_model
+    path: /_plugins/_ml/models/_register
+    method: POST
+    request_body:
+      payload:
+        name: huggingface/sentence-transformers/msmarco-distilbert-base-tas-b
+        version: 1.0.1
+        model_format: TORCH_SCRIPT
+        model_group_id: ${model_group.model_group_id}
+    output:
+      task_id: payload.task_id
+  - synopsis: Wait for a model to be registered.
+    path: /_plugins/_ml/tasks/{task_id}
+    id: model
+    method: GET
+    parameters:
+      task_id: ${register_model.task_id}
+    response:
+      status: 200
+      payload:
+        state: COMPLETED
+    retry:
+      count: 3
+      wait: 30000
+    output:
+      model_id: payload.model_id
+  - synopsis: Create an ingest pipeline.
+    path: /_ingest/pipeline/{id}
+    method: PUT
+    parameters:
+      id: books_pipeline
+    request_body:
+      payload:
+        description: Extracts text from field and embeds it.
+        processors:
+          - text_embedding:
+              model_id: ${model.model_id}
+              field_map:
+                text: passage_embedding
+    response:
+      status: 200
+      payload:
+        acknowledged: true
+  - synopsis: Create an index that uses the pipeline.
+    path: /{index}
+    method: PUT
+    parameters:
+      index: books
+    request_body:
+      payload:
+        settings:
+          index.knn: true
+          default_pipeline: books_pipeline
+        mappings:
+          properties:
+            passage_embedding:
+              type: knn_vector
+              dimension: 768
+              method:
+                engine: lucene
+                space_type: l2
+                name: hnsw
+                parameters: {}
+    response:
+      status: 200
+      payload:
+        acknowledged: true
+
