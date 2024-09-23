@@ -7,7 +7,7 @@ paths: {}
 components:
   schemas:
     Aggregate:
-      oneOf:
+      anyOf:
         - $ref: '#/components/schemas/CardinalityAggregate'
         - $ref: '#/components/schemas/HdrPercentilesAggregate'
         - $ref: '#/components/schemas/HdrPercentileRanksAggregate'
