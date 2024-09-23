@@ -1,6 +1,6 @@
 $schema: ../../../../../json_schemas/test_story.schema.yaml
 
-description: Test aggregation.
+description: Test nested aggregation.
 prologues:
   - path: books
     method: PUT
@@ -8,7 +8,7 @@ prologues:
       payload:
         mappings:
           properties:
-            details:
+            cover:
               type: nested
               properties:
                 title:
@@ -20,12 +20,12 @@ prologues:
     request:
       content_type: application/x-ndjson
       payload:
-        - {index: {_index: books, _id: '0'}}
-        - {details: {title: title1}}
-        - {index: {_index: books, _id: '1'}}
-        - {details: {title: title2}}
+        - {index: {_index: books}}
+        - {cover: {title: To Kill a Mockingbird}}
+        - {index: {_index: books}}
+        - {cover: {title: Beauty and the Beast}}
 chapters:
-  - synopsis: Aggregation with nested.
+  - synopsis: Aggregate by a nested field.
     path: /{index}/_search
     parameters:
       index: books
@@ -36,7 +36,7 @@ chapters:
         aggregations:
           title:
             nested:
-              path: details
+              path: cover
     response:
       status: 200
       payload:
