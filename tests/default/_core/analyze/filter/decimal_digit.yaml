@@ -1,0 +1,4 @@
+$schema: ../../../../../json_schemas/test_story.schema.yaml
+
+description: Test /_analyze with a filter.
+chapters: []
