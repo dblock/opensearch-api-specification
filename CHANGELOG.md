@@ -4,6 +4,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+## [0.1.0] - 2024-10-22
+
 ### Added
 
 - Added CHANGELOG ([#309](https://github.com/opensearch-project/opensearch-api-specification/pull/309))
@@ -135,7 +137,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Removed `shape` query ([#531](https://github.com/opensearch-project/opensearch-api-specification/pull/531))
 - Removed unsupported DataStream Lifecycle types ([#600](https://github.com/opensearch-project/opensearch-api-specification/pull/600))
 - Removed unsupported runtime field types ([#634](https://github.com/opensearch-project/opensearch-api-specification/pull/634))
- 
+
 ### Fixed
 
 - Fixed GitHub pages ([#215](https://github.com/opensearch-project/opensearch-api-specification/pull/215))
@@ -182,4 +184,5 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Security
 
-[Unreleased]: https://github.com/opensearch-project/opensearch-api-specification/commits/main
+[unreleased]: https://github.com/dblock/opensearch-api-specification/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/dblock/opensearch-api-specification/compare/f7e7d6ab8a85c6d14de276a8f995be5ab4549d44...v0.1.0
