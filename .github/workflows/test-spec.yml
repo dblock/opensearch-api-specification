@@ -61,10 +61,10 @@ jobs:
             key: tests/plugins/security/.kirk-key.pem
           - version: 2.19.0
             hub: opensearchstaging
-            ref: '@sha256:4da23e0137b2b67206d23b36fcf0914cc39b3bf19310c782f536e4934b86f6cc'
+            ref: "@sha256:4da23e0137b2b67206d23b36fcf0914cc39b3bf19310c782f536e4934b86f6cc"
           - version: 3.0.0
             hub: opensearchstaging
-            ref: '@sha256:727643acdfebed77bfdb26362dbcff536b7ea02a0cc4ae2da2521729171333de'
+            ref: "@sha256:727643acdfebed77bfdb26362dbcff536b7ea02a0cc4ae2da2521729171333de"
 
     name: test-opensearch-spec (version=${{ matrix.entry.version }}, hub=${{ matrix.entry.hub || 'opensearchproject' }}, tests=${{ matrix.entry.tests || 'default' }})
     runs-on: ubuntu-latest
@@ -83,7 +83,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install Dependencies
         run: npm ci
@@ -105,7 +105,8 @@ jobs:
             --opensearch-url=${{ matrix.entry.url || 'https://localhost:9200'}} \
             --opensearch-cert=${{ matrix.entry.cert }} \
             --opensearch-key=${{ matrix.entry.key }} \
-            --tests=tests/${{ matrix.entry.tests || 'default' }}
+            --tests=tests/${{ matrix.entry.tests || 'default' }} \
+            --log logs/test-spec-${{ steps.tests.outputs.hash }}.log
 
       - name: Get Container Logs
         if: failure()
