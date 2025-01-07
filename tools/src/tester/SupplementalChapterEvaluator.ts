@@ -12,10 +12,11 @@ import { ChapterOutput } from "./ChapterOutput";
 import ChapterReader from "./ChapterReader";
 import { StoryOutputs } from "./StoryOutputs";
 import { overall_result } from "./helpers";
-import { ChapterEvaluation, EvaluationWithOutput, Result } from './types/eval.types';
+import { ChapterEvaluation, Evaluation, EvaluationWithOutput, Result } from './types/eval.types';
 import { Logger } from "../Logger";
 import { sleep, to_json } from "../helpers";
-import { SupplementalChapter } from "./types/story.types";
+import { ActualResponse, Payload, SupplementalChapter } from "./types/story.types";
+import { atomizeChangeset, diff, Operation } from "json-diff-ts";
 
 export default class SupplementalChapterEvaluator {
   private readonly _chapter_reader: ChapterReader;
@@ -49,10 +50,11 @@ export default class SupplementalChapterEvaluator {
     const response = await this._chapter_reader.read(chapter, story_outputs)
     const output_values_evaluation = ChapterOutput.extract_output_values(response, chapter.output)
     if (output_values_evaluation.output) this.logger.info(`$ ${to_json(output_values_evaluation.output)}`)
-
     const status = chapter.status ?? [200, 201]
     const overall = status.includes(response.status) ? { result: Result.PASSED } : { result: Result.ERROR, message: response.message, error: response.error as Error }
-    const result: Result = overall_result(_.compact([overall, output_values_evaluation.evaluation]))
+    const response_payload: Payload | undefined = overall.result === Result.PASSED ? story_outputs.resolve_value(chapter.response?.payload) : chapter.response?.payload
+    const payload_body_evaluation = overall.result === Result.PASSED ? this.#evaluate_payload_body(response, response_payload) : { result: Result.SKIPPED }
+    const result: Result = overall_result(_.compact([overall, payload_body_evaluation, output_values_evaluation.evaluation]))
 
     var evaluation_result: EvaluationWithOutput = { evaluation: { result } }
     if (output_values_evaluation.output) { evaluation_result.output = output_values_evaluation.output }
@@ -68,5 +70,21 @@ export default class SupplementalChapterEvaluator {
     }
 
     return evaluation_result
+  }
+
+  #evaluate_payload_body(response: ActualResponse, expected_payload?: Payload): Evaluation {
+    if (expected_payload == null) return { result: Result.PASSED }
+    const payload = response.payload
+    this.logger.info(`${to_json(payload)}`)
+    const delta = atomizeChangeset(diff(expected_payload, payload))
+    const messages: string[] = _.compact(delta.map((value, _index, _array) => {
+      switch (value.type) {
+        case Operation.UPDATE:
+          return `expected ${value.path.replace('$.', '')}='${value.oldValue}', got '${value.value}'`
+        case Operation.REMOVE:
+          return `missing ${value.path.replace('$.', '')}='${value.value}'`
+      }
+    }))
+    return messages.length > 0 ? { result: Result.FAILED, message: _.join(messages, ', ') } : { result: Result.PASSED }
   }
 }
